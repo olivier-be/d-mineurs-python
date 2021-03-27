@@ -1,4 +1,19 @@
-from random import 
+from tkinter import *
+
+window = Tk()
+
+window.title("démineur")
+window.geometry("1080x720")
+window.minsize(1080,720)
+window.iconbitmap("démineur.ico")
+window.config(background='#FFFFFF')
+
+texted1=Label(window,text="bienvenue sur le démineur",font=("Courrier",30),bg='#FFFFFF')
+texted1.pack(expand=YES)
+texted2=Label(window,text="réaliser par Olivier,Yanis et Clément",font=("Courrier",30),bg='#FFFFFF')
+texted2.pack(expand=YES)
+
+window.mainloop()
 
 
 
