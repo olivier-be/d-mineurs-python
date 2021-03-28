@@ -1,3 +1,18 @@
+from tkinter import *
+# import time
+import webbrowser
+
+
+
+def open_github():
+    webbrowser.open_new("https://github.com/olivier-be/d-mineurs-python")
+
+
+def fermer_fenetre():
+    window.quit()
+
+
+
 window = Tk()
 
 window.title("démineur")
@@ -12,10 +27,12 @@ texted1 = Label(frame, text="bienvenue sur le démineur", font=("Courrier", 40),
 texted1.pack(expand=YES)
 texted2 = Label(frame, text="réaliser par Olivier,Yanis et Clément", font=("Courrier", 20), bg='#FFFFFF')
 texted2.pack(expand=YES)
+gt_buttion = Button(frame, text="ouvrir github", font=("Courrier", 20), bg='#FFFFFF', command=open_github)
+gt_buttion.pack(side=BOTTOM, pady=100)
+quit_buttion = Button(frame, text="quitter crédit", font=("Courrier", 20), bg='#FFFFFF', command=fermer_fenetre)
+quit_buttion.pack(side=BOTTOM, pady=50)
+
 frame.pack(expand=YES)
-gt_buttion = Button(window, text="ouvrir github", font=("Courrier", 20), bg='#FFFFFF',command=open_github)
-gt_buttion.pack(side=BOTTOM)
+
 window.mainloop()
-
-
 
