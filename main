@@ -1,7 +1,12 @@
+from random import *
 from tkinter import *
-# import time
 import webbrowser
 
+fenetre = Tk()
+fenetre.title("démineur")
+fenetre.geometry("428x465")
+fenetre.minsize(410, 465)
+fenetre.config(background='#FFFFFF')
 
 
 def open_github():
@@ -9,8 +14,7 @@ def open_github():
 
 
 def fermer_fenetre():
-    window.quit()
-
+    frame.quit()
 
 
 window = Tk()
@@ -33,6 +37,58 @@ quit_buttion = Button(frame, text="quitter crédit", font=("Courrier", 20), bg='
 quit_buttion.pack(side=BOTTOM, pady=50)
 
 frame.pack(expand=YES)
+xmin1 = randint(1, 20)
+ymin1 = randint(1, 10)
+xmin2 = randint(1, 20)
+ymin2 = randint(1, 10)
+xmin3 = randint(1, 20)
+ymin3 = randint(1, 10)
+xmin4 = randint(1, 20)
+ymin4 = randint(1, 10)
+nb = 1
 
+def minetoucher():
+    print("vous avez perdu")
+tab=[0]*190
+tabp=[[0]]*65
+tabnb=[[0,0]]*190
+tabm=[0]*190
+i=1
+z=1
+e=1
+while tab[e]==0:
+    if tabm[i]==1:
+        i=i
+    elif tabm[e+1] or tabm[e-1]:
+        i=i
+    elif tabnb[i][0] == xmin1 and tabnb[i][1] == ymin1 or tabnb[i][0] == xmin2 and tabnb[i][1] == ymin2 or tabnb[i][0] == xmin3 and tabnb[i][1] == ymin3 or tabnb[i][0] == xmin4 and tabnb[i][1] == ymin4:
+        ligne=tabnb[i][0]
+        colonne=tabnb[i][1]
+        tab[i]=tab[i]=Button(fenetre, text="proche").grid(row=ligne, column=colonne)
+    else:
+        tab[e].destroy()
+for ligne in range(19):
+    for colonne in range(10):
+        if ligne == xmin1 and colonne == ymin1 or ligne == xmin2 and colonne == ymin2 or ligne == xmin3 and colonne == ymin3 or ligne == xmin4 and colonne == ymin4:
+            tab[i]=Button(fenetre, text="mine?", command=minetoucher and i.destroy ).grid(row=ligne, column=colonne)
+            tabnb[i][0]=ligne
+            tabnb[i][1]=colonne
+            tabm[i]=1
+        elif ligne == xmin1 - 1 or ligne == xmin1 + 1 and colonne == ymin1 - 1 or colonne == ymin1 + 1 and ligne == xmin2 - 1 or ligne == xmin2 + 1 and colonne == ymin2 - 1 or colonne == ymin2 + 1:
+            tab[i]=Button(fenetre, text="mine?").grid(row=ligne, column=colonne)
+            tabp[z][i] = (ligne, colonne)
+            tabnb[i][0] = ligne
+            tabnb[i][1] = colonne
+        elif ligne == xmin3 - 1 or ligne == xmin3 + 1 and colonne == ymin3 - 1 or colonne == ymin3 + 1 and ligne == xmin4 - 1 or ligne == xmin4 + 1 and colonne == ymin4 - 1 or colonne == ymin4 + 1:
+            tab[i]=Button(fenetre, text="mine?").grid(row=ligne, column=colonne)
+            tabp[z][i] = (ligne, colonne)
+            tabnb[i][0] = ligne
+            tabnb[i][1] = colonne
+        else:
+            tab[i]=Button(fenetre, text="mine?",command=i.destroy).grid(row=ligne,column=colonne)
+    i=i+1
+    z=z+1
+
+    nb += 1
 window.mainloop()
-
+fenetre.mainloop()
