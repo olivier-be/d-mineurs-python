@@ -49,13 +49,15 @@ nb = 1
 
 def minetoucher():
     print("vous avez perdu")
-tab=[0]*190
-tabp=[[0]]*65
+tab=[Button]*190
+
 tabnb=[[0,0]]*190
 tabm=[0]*190
 i=1
 z=1
 e=1
+
+
 while tab[e]==0:
     if tabm[i]==1:
         i=i
@@ -70,22 +72,20 @@ while tab[e]==0:
 for ligne in range(19):
     for colonne in range(10):
         if ligne == xmin1 and colonne == ymin1 or ligne == xmin2 and colonne == ymin2 or ligne == xmin3 and colonne == ymin3 or ligne == xmin4 and colonne == ymin4:
-            tab[i]=Button(fenetre, text="mine?", command=minetoucher and i.destroy ).grid(row=ligne, column=colonne)
+            tab[i]=Button(fenetre, text="mine?", command=minetoucher and Button.destroy).grid(row=ligne, column=colonne)
             tabnb[i][0]=ligne
             tabnb[i][1]=colonne
             tabm[i]=1
         elif ligne == xmin1 - 1 or ligne == xmin1 + 1 and colonne == ymin1 - 1 or colonne == ymin1 + 1 and ligne == xmin2 - 1 or ligne == xmin2 + 1 and colonne == ymin2 - 1 or colonne == ymin2 + 1:
             tab[i]=Button(fenetre, text="mine?").grid(row=ligne, column=colonne)
-            tabp[z][i] = (ligne, colonne)
             tabnb[i][0] = ligne
             tabnb[i][1] = colonne
         elif ligne == xmin3 - 1 or ligne == xmin3 + 1 and colonne == ymin3 - 1 or colonne == ymin3 + 1 and ligne == xmin4 - 1 or ligne == xmin4 + 1 and colonne == ymin4 - 1 or colonne == ymin4 + 1:
             tab[i]=Button(fenetre, text="mine?").grid(row=ligne, column=colonne)
-            tabp[z][i] = (ligne, colonne)
             tabnb[i][0] = ligne
             tabnb[i][1] = colonne
         else:
-            tab[i]=Button(fenetre, text="mine?",command=i.destroy).grid(row=ligne,column=colonne)
+            tab[i]=Button(fenetre, text="mine?",command=Button.destroy).grid(row=ligne,column=colonne)
     i=i+1
     z=z+1
 
