@@ -1,6 +1,4 @@
-
-
-    frame1.pack()from tkinter import *
+from tkinter import *
 
 import webbrowser
 
@@ -11,7 +9,7 @@ def open_github():
 a=0
 
 def fermer_fenetre():
-    frame.quit()
+    window.quit()
     a=1
     return a
 
@@ -22,6 +20,15 @@ window.geometry("1080x720")
 window.minsize(1080, 720)
 window.iconbitmap("démineur.ico")
 window.config(background='#FFFFFF')
+
+windowd = Tk()
+
+windowd.title("démineur")
+windowd.geometry("1080x720")
+windowd.minsize(1080, 720)
+windowd.iconbitmap("démineur.ico")
+windowd.config(background='#FFFFFF')
+
 
 frame = Frame(window, bg='#FFFFFF')
 
@@ -38,4 +45,5 @@ frame.pack(expand=YES)
 
 window.mainloop()
 frame1 = Frame(window, bg='#FFFFFF')
-while a==1:
+while a==1(windowd):
+       windowd.mainloop()
