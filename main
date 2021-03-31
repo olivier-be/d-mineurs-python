@@ -60,11 +60,14 @@ i=1
 z=1
 e=1
 def disparait():
+    tab[12]['text'] = 'proche'
+def changenompr():
+    globals(tab)
+    tab[12]['text'] = 'proche'
+def changenomr(i):
+    globals(tab,tabm,tabnb,xmin1,ymin1,xmin2,ymin2,xmin3,ymin3,xmin4,ymin4)
+    tab[i]['text'] = 'rien'
 
-    tab[i] = Button(fenetre, text="rien").grid(row=ligne, column=colonne)
-    print(i)
-
-#vérification case = rien ou destroy(non fonctionel)
 #e=64
 #while 1==0:
 #    if e<64 or e=None:
@@ -87,7 +90,7 @@ def disparait():
 #        e=e+1
 
 
-
+i=1
 for ligne in range(19):
     for colonne in range(10):
         if ligne == xmin1 and colonne == ymin1 or ligne == xmin2 and colonne == ymin2 or ligne == xmin3 and colonne == ymin3 or ligne == xmin4 and colonne == ymin4:
@@ -96,19 +99,20 @@ for ligne in range(19):
             tabnb[i][1]=colonne
             tabm[i]=1
         elif ligne == xmin1 - 1 or ligne == xmin1 + 1 and colonne == ymin1 - 1 or colonne == ymin1 + 1 and ligne == xmin2 - 1 or ligne == xmin2 + 1 and colonne == ymin2 - 1 or colonne == ymin2 + 1:
-            tab[i]=Button(fenetre, text="mine?").grid(row=ligne, column=colonne)
+            tab[i]=Button(fenetre, text="mine?",command=changenompr).grid(row=ligne, column=colonne)
             tabnb[i][0] = ligne
             tabnb[i][1] = colonne
         elif ligne == xmin3 - 1 or ligne == xmin3 + 1 and colonne == ymin3 - 1 or colonne == ymin3 + 1 and ligne == xmin4 - 1 or ligne == xmin4 + 1 and colonne == ymin4 - 1 or colonne == ymin4 + 1:
-            tab[i]=Button(fenetre, text="mine?").grid(row=ligne, column=colonne)
+            tab[i]=Button(fenetre, text="mine?",command=disparait).grid(row=ligne, column=colonne)
             tabnb[i][0] = ligne
             tabnb[i][1] = colonne
         else:
             tab[i]=Button(fenetre, text="mine?",command=disparait).grid(row=ligne,column=colonne )
-    i=i+1
+        print(i)
+        i=i+1
     z=z+1
-
     nb += 1
+
 window.mainloop()
 fenetre.mainloop()
 
