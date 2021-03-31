@@ -52,7 +52,7 @@ nb = 1
 tab=[Button]*200
 def minetoucher():
     print("vous avez perdu")
-    messagebox.showerror(title="démineur",iconbitmap="démineur.ico", message=" tu as perdu \n partie termier !")
+    messagebox.showerror(title="démineur", message=" tu as perdu \n partie termier !")
 
 
 
@@ -61,8 +61,9 @@ tabm=[0]*190
 i=1
 z=1
 e=1
-def disparait():
-    tab[i].config(text='proche')
+def disparait(i):
+    global tab
+    i['text']='rien'
 def changenompr():
     globals()
     tab[12].config(text='proche')
@@ -107,7 +108,7 @@ for ligne in range(19):
                 tabnb[i][1] = colonne
                 print("2",i)
         else:
-                tab[i] = Button(fenetre, text="mine?", command=disparait).grid(row=ligne, column=colonne)
+                tab[i] = Button(fenetre, text="mine?", command=disparait(tab[i])).grid(row=ligne, column=colonne)
                 print(i)
         i=i+1
     z=z+1
