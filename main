@@ -54,16 +54,16 @@ def minetoucher():
 
 
 
-tabnb=[[0,0]]*190
+tabnb=[[0,0]]*191
 tabm=[0]*190
 i=1
 z=1
 e=1
 def disparait():
-    tab[12]['text'] = 'proche'
+    tab[i].config(text='proche')
 def changenompr():
-    globals(tab)
-    tab[12]['text'] = 'proche'
+    globals()
+    tab[12].config(text='proche')
 def changenomr(i):
     globals(tab,tabm,tabnb,xmin1,ymin1,xmin2,ymin2,xmin3,ymin3,xmin4,ymin4)
     tab[i]['text'] = 'rien'
