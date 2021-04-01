@@ -76,11 +76,12 @@ def score_precedent():
         tab_score = [0]*len(nb_ligne)
         for x in range(len(nb_ligne)):
             tab_score[x]=int(file.read())
+            print(nb_ligne,"&bc")
         tab_score.sort(reverse = True)
         for p in range(len(nb_ligne)):
             scoreint=str(tab_score)
             Label(score_board,text="{} avec le score de {}".format(p,scoreint))
-            
+
     file.close()
 score_precedent()
 def minetoucher():
@@ -159,3 +160,6 @@ for ligne in range(19):
     nb += 1
 
 window.mainloop()
+
+
+
