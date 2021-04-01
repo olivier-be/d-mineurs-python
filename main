@@ -29,6 +29,16 @@ window.minsize(1080, 720)
 window.iconbitmap("démineur.ico")
 window.config(background='#FFFFFF')
 
+
+score_board = Tk()
+
+score_board.title("démineur")
+score_board.geometry("1080x720")
+score_board.minsize(1080, 720)
+score_board.iconbitmap("démineur.ico")
+score_board.config(background='#FFFFFF')
+
+
 frame = Frame(window, bg='#FFFFFF')
 
 textedebut = Label(frame, text="bienvenue sur le démineur", font=("Courrier", 40), bg='#FFFFFF')
@@ -41,6 +51,7 @@ quit_buttion = Button(frame, text="quitter crédit", font=("Courrier", 20), bg='
 quit_buttion.pack(side=BOTTOM, pady=50)
 
 frame.pack(expand=YES)
+
 xmin1 = randint(0, 18)
 ymin1 = randint(0, 9)
 xmin2 = randint(0, 18)
@@ -58,6 +69,20 @@ def point():
     global score
     score=score+1
     return score
+
+def score_precedent():
+    with open("score.txt","a+") as file:
+        nb_ligne= file.readlines()
+        tab_score = [0]*len(nb_ligne)
+        for x in range(len(nb_ligne)):
+            tab_score[x]=int(file.read())
+        tab_score.sort(reverse = True)
+        for p in range(len(nb_ligne)):
+            scoreint=str(tab_score)
+            Label(score_board,text="{} avec le score de {}".format(p,scoreint))
+            
+    file.close()
+score_precedent()
 def minetoucher():
     print("vous avez perdu")
     global score
@@ -134,5 +159,3 @@ for ligne in range(19):
     nb += 1
 
 window.mainloop()
-
-
