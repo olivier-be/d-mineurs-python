@@ -4,11 +4,35 @@ import webbrowser
 from tkinter import messagebox
 from time import sleep
 
+# fenetre démineur 
 fenetre = Tk()
 fenetre.title("démineur")
 fenetre.geometry("430x465")
 fenetre.minsize(410, 465)
 fenetre.config(background='#FFFFFF')
+
+
+# fenetre1
+window = Tk()
+
+window.title("démineur")
+window.geometry("1080x720")
+window.minsize(1080, 720)
+window.iconbitmap("démineur.ico")
+window.config(background='#FFFFFF')
+
+#fenetre score board
+score_board = Tk()
+
+score_board.title("démineur")
+score_board.geometry("1080x720")
+score_board.minsize(1080, 720)
+score_board.iconbitmap("démineur.ico")
+score_board.config(background='#FFFFFF')
+
+#sous fentre 1
+frame = Frame(window, bg='#FFFFFF')
+
 
 
 def open_github():
@@ -20,27 +44,7 @@ def fermer_fenetre():
     sleep(1)
     fenetre.mainloop()
 
-
-window = Tk()
-
-window.title("démineur")
-window.geometry("1080x720")
-window.minsize(1080, 720)
-window.iconbitmap("démineur.ico")
-window.config(background='#FFFFFF')
-
-
-score_board = Tk()
-
-score_board.title("démineur")
-score_board.geometry("1080x720")
-score_board.minsize(1080, 720)
-score_board.iconbitmap("démineur.ico")
-score_board.config(background='#FFFFFF')
-
-
-frame = Frame(window, bg='#FFFFFF')
-
+# fenetre 1 bouton et texte
 textedebut = Label(frame, text="bienvenue sur le démineur", font=("Courrier", 40), bg='#FFFFFF')
 textedebut.pack(expand=YES)
 credit = Label(frame, text="réaliser par Olivier,Yanis et Clément", font=("Courrier", 20), bg='#FFFFFF')
@@ -52,6 +56,7 @@ quit_buttion.pack(side=BOTTOM, pady=50)
 
 frame.pack(expand=YES)
 
+#position mine
 xmin1 = randint(0, 18)
 ymin1 = randint(0, 9)
 xmin2 = randint(0, 18)
@@ -65,11 +70,13 @@ print(xmin1,ymin1,xmin2,ymin2,xmin3,ymin3,xmin4,ymin4)
 nb = 1
 tab=[Button]*200
 score=0
+
+#score ( case déactiver avant de toucher une mine )
 def point():
     global score
     score=score+1
     return score
-
+# affiche score précédant dans scoreboard
 def score_precedent():
     with open("score.txt","a+") as file:
         nb_ligne= file.readlines()
@@ -84,6 +91,7 @@ def score_precedent():
 
     file.close()
 score_precedent()
+
 def minetoucher():
     print("vous avez perdu")
     global score
@@ -105,15 +113,16 @@ tabm=[0]*190
 i=1
 z=1
 e=1
+
 def disparait(Button):
   #  Button.['text']='rien'
     Button.pack_forget()
-def changenompr():
+def change_nom_proche():
     globals()
     tab[12].config(text="proche")
-def changenomr(i):
-    globals()
-    tab[i]['text'] = 'rien'
+#def change_nom_rien(i):
+#    globals()
+#    tab[i]['text'] = 'rien'
 
 #e=64
 #while 1==0:
@@ -137,8 +146,8 @@ def changenomr(i):
 #        e=e+1
 tabe=[0]*200
 
+# creation grille button dans une matrice 
 i=1
-
 for ligne in range(19):
     for colonne in range(10):
         if ligne == xmin1 and colonne == ymin1 or ligne == xmin2 and colonne == ymin2 or ligne == xmin3 and colonne == ymin3 or ligne == xmin4 and colonne == ymin4:
@@ -148,7 +157,7 @@ for ligne in range(19):
             tabm[i]=1
             print("a", i)
         elif ligne == xmin1 - 1 or ligne == xmin1 + 1 and colonne == ymin1 - 1 or colonne == ymin1 + 1 and ligne == xmin2 - 1 or ligne == xmin2 + 1 and colonne == ymin2 - 1 or colonne == ymin2 + 1 and ligne == xmin3 - 1 or ligne == xmin3 + 1 and colonne == ymin3 - 1 or colonne == ymin3 + 1 and ligne == xmin4 - 1 or ligne == xmin4 + 1 and colonne == ymin4 - 1 or colonne == ymin4 + 1:
-                tab[i]=Button(fenetre, text="mine?",command=changenompr and point).grid(row=ligne, column=colonne)
+                tab[i]=Button(fenetre, text="mine?",command=change_nom_proche and point).grid(row=ligne, column=colonne)
                 tabnb[i][0] = ligne
                 tabnb[i][1] = colonne
                 print("2",i)
@@ -160,6 +169,3 @@ for ligne in range(19):
     nb += 1
 
 window.mainloop()
-
-
-
