@@ -2,6 +2,7 @@ from random import *
 from tkinter import *
 import webbrowser
 from tkinter import messagebox
+from time import sleep
 
 fenetre = Tk()
 fenetre.title("démineur")
@@ -15,7 +16,9 @@ def open_github():
 
 
 def fermer_fenetre():
-    frame.quit()
+    window.quit()
+    sleep(1)
+    fenetre.mainloop()
 
 
 window = Tk()
@@ -28,10 +31,10 @@ window.config(background='#FFFFFF')
 
 frame = Frame(window, bg='#FFFFFF')
 
-texted1 = Label(frame, text="bienvenue sur le démineur", font=("Courrier", 40), bg='#FFFFFF')
-texted1.pack(expand=YES)
-texted2 = Label(frame, text="réaliser par Olivier,Yanis et Clément", font=("Courrier", 20), bg='#FFFFFF')
-texted2.pack(expand=YES)
+textedebut = Label(frame, text="bienvenue sur le démineur", font=("Courrier", 40), bg='#FFFFFF')
+textedebut.pack(expand=YES)
+credit = Label(frame, text="réaliser par Olivier,Yanis et Clément", font=("Courrier", 20), bg='#FFFFFF')
+credit.pack(expand=YES)
 gt_buttion = Button(frame, text="ouvrir github", font=("Courrier", 20), bg='#FFFFFF', command=open_github)
 gt_buttion.pack(side=BOTTOM, pady=100)
 quit_buttion = Button(frame, text="quitter crédit", font=("Courrier", 20), bg='#FFFFFF', command=fermer_fenetre)
@@ -50,9 +53,24 @@ ymin4 = randint(0, 9)
 print(xmin1,ymin1,xmin2,ymin2,xmin3,ymin3,xmin4,ymin4)
 nb = 1
 tab=[Button]*200
+score=0
+def point():
+    global score
+    score=score+1
+    return score
 def minetoucher():
     print("vous avez perdu")
-    messagebox.showerror(title="démineur", message=" tu as perdu \n partie termier !")
+    global score
+    messagebox.showerror(title="démineur", message=" tu as perdu \n partie termier !\n ton score est de {}".format(score))
+    sleep(5)
+    score=str(score)
+    with open("score.txt","a+") as file:
+        file.write(score+ "\n")
+        print(score)
+        file.close()
+    window.destroy()
+    fenetre.destroy()
+    return 0
 
 
 
@@ -61,14 +79,14 @@ tabm=[0]*190
 i=1
 z=1
 e=1
-def disparait(i):
-    global tab
-    i['text']='rien'
+def disparait(Button):
+  #  Button.['text']='rien'
+    Button.pack_forget()
 def changenompr():
     globals()
-    tab[12].config(text='proche')
+    tab[12].config(text="proche")
 def changenomr(i):
-    globals(tab,tabm,tabnb,xmin1,ymin1,xmin2,ymin2,xmin3,ymin3,xmin4,ymin4)
+    globals()
     tab[i]['text'] = 'rien'
 
 #e=64
@@ -91,9 +109,10 @@ def changenomr(i):
 #        e=64
 #    else:
 #        e=e+1
-
+tabe=[0]*200
 
 i=1
+
 for ligne in range(19):
     for colonne in range(10):
         if ligne == xmin1 and colonne == ymin1 or ligne == xmin2 and colonne == ymin2 or ligne == xmin3 and colonne == ymin3 or ligne == xmin4 and colonne == ymin4:
@@ -103,16 +122,17 @@ for ligne in range(19):
             tabm[i]=1
             print("a", i)
         elif ligne == xmin1 - 1 or ligne == xmin1 + 1 and colonne == ymin1 - 1 or colonne == ymin1 + 1 and ligne == xmin2 - 1 or ligne == xmin2 + 1 and colonne == ymin2 - 1 or colonne == ymin2 + 1 and ligne == xmin3 - 1 or ligne == xmin3 + 1 and colonne == ymin3 - 1 or colonne == ymin3 + 1 and ligne == xmin4 - 1 or ligne == xmin4 + 1 and colonne == ymin4 - 1 or colonne == ymin4 + 1:
-                tab[i]=Button(fenetre, text="mine?",command=changenompr).grid(row=ligne, column=colonne)
+                tab[i]=Button(fenetre, text="mine?",command=changenompr and point).grid(row=ligne, column=colonne)
                 tabnb[i][0] = ligne
                 tabnb[i][1] = colonne
                 print("2",i)
         else:
-                tab[i] = Button(fenetre, text="mine?", command=disparait(tab[i])).grid(row=ligne, column=colonne)
+                tab[i] = Button(fenetre, text="mine?", command=disparait and point).grid(row=ligne, column=colonne)
                 print(i)
         i=i+1
     z=z+1
     nb += 1
 
 window.mainloop()
-fenetre.mainloop()
+
+
