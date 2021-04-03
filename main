@@ -35,25 +35,6 @@ score_board.config(background='#FFFFFF')
 #sous fentre 1
 frame = Frame(window, bg='#FFFFFF')
 
-#class Application(fenetre):
-#    global ligne,colonne
- #   def __init__(self, master=None):
-  #      super().__init__(master)
-   #     self.master = master
-    #    self.grid()
-     #   self.create_widgets()
-#
- #   def create_widgets(self):
-  #      self.hi_there = fenetre.Button(self)
-   #     self.hi_there["text"] = "mine?"
-    #    self.hi_there["command"] = self.destroy
-     #   self.hi_there.grid(row=ligne,column=colonne)
-#
-
-  #  def destroy(self):
- #       global ligne,colonne
-   #     self.grid_forget()
-
 
 def open_github():
     webbrowser.open_new("https://github.com/olivier-be/d-mineurs-python")
@@ -132,8 +113,9 @@ e=1
 def disparait(i):
     tab[i]['text']='rien'
 
-def change_nom_proche(i):
-    tab[i].config(text="proche")
+def change_nom_proche(i,ligne,colonne):
+    tab[i].grid_forget()
+    Label(text="1").grid(row=ligne,column=colonne)
 
 
 
@@ -152,19 +134,19 @@ for ligne in range(19):
             tab[i].grid(row=ligne, column=colonne)
             print("a", i)
         elif  ((ligne== tabmine[1][0] - 1 or ligne == tabmine[1][0] + 1 or ligne == tabmine[1][0]) and (colonne == tabmine[1][1] - 1 or colonne == tabmine[1][1] + 1 )) or ((ligne== tabmine[1][0] - 1 or ligne == tabmine[1][0] + 1) and (colonne == tabmine[1][1] - 1 or colonne == tabmine[1][1] + 1 or colonne == tabmine[1][1])):
-            tab[i]=Button(fenetre, text="mine?",bg='#DC1010',command=lambda i=i: change_nom_proche(i) and point)
+            tab[i]=Button(fenetre, text="mine?",bg='#DC1010',command=lambda i=i,ligne=ligne,colonne=colonne: change_nom_proche(i,ligne,colonne) and point)
             tab[i].grid(row=ligne, column=colonne)
             print("2",i)
         elif  ((ligne== tabmine[2][0] - 1 or ligne == tabmine[2][0] + 1 or ligne == tabmine[2][0]) and (colonne == tabmine[2][1] - 1 or colonne == tabmine[2][1] + 1 )) or ((ligne== tabmine[2][0] - 1 or ligne == tabmine[2][0] + 1) and (colonne == tabmine[2][1] - 1 or colonne == tabmine[2][1] + 1 or colonne == tabmine[2][1])):
-            tab[i]=Button(fenetre, text="mine?",bg='#DC1010',command=lambda i=i: change_nom_proche(i) and point)
+            tab[i]=Button(fenetre, text="mine?",bg='#DC1010',command=lambda i=i,ligne=ligne,colonne=colonne: change_nom_proche(i,ligne,colonne) and point)
             tab[i].grid(row=ligne, column=colonne)
             print("2",i)
         elif  ((ligne== tabmine[3][0] - 1 or ligne == tabmine[3][0] + 1 or ligne == tabmine[3][0]) and (colonne == tabmine[3][1] - 1 or colonne == tabmine[3][1] + 1 )) or( (ligne== tabmine[3][0] - 1 or ligne == tabmine[3][0] + 1 ) and (colonne == tabmine[3][1] - 1 or colonne == tabmine[3][1] + 1 or colonne == tabmine[3][1])):
-            tab[i] = Button(fenetre, text="mine?",bg='#DC1010', command=lambda i=i: change_nom_proche(i) and point)
+            tab[i] = Button(fenetre, text="mine?",bg='#DC1010', command=lambda i=i,ligne=ligne,colonne=colonne: change_nom_proche(i,ligne,colonne) and point)
             tab[i].grid(row=ligne, column=colonne)
             print("2", i)
         elif  ((ligne== tabmine[4][0] - 1 or ligne == tabmine[4][0] + 1 or ligne == tabmine[4][0]) and (colonne == tabmine[4][1] - 1 or colonne == tabmine[4][1] + 1 )) or ((ligne== tabmine[4][0] - 1 or ligne == tabmine[4][0] + 1 ) and (colonne == tabmine[4][1] - 1 or colonne == tabmine[4][1] + 1 or colonne == tabmine[4][1])) :
-            tab[i] = Button(fenetre, text="mine?",bg='#DC1010', command=lambda i=i: change_nom_proche(i) and point)
+            tab[i] = Button(fenetre, text="mine?",bg='#DC1010', command=lambda i=i,ligne=ligne,colonne=colonne: change_nom_proche(i,ligne,colonne) and point)
             tab[i].grid(row=ligne, column=colonne)
             print("2", i)
         else:
