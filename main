@@ -4,7 +4,9 @@ import webbrowser
 from tkinter import messagebox
 from time import sleep
 
-# fenetre démineur 
+
+
+# fenetre démineur
 fenetre = Tk()
 fenetre.title("démineur")
 fenetre.geometry("430x465")
@@ -33,6 +35,24 @@ score_board.config(background='#FFFFFF')
 #sous fentre 1
 frame = Frame(window, bg='#FFFFFF')
 
+#class Application(fenetre):
+#    global ligne,colonne
+ #   def __init__(self, master=None):
+  #      super().__init__(master)
+   #     self.master = master
+    #    self.grid()
+     #   self.create_widgets()
+#
+ #   def create_widgets(self):
+  #      self.hi_there = fenetre.Button(self)
+   #     self.hi_there["text"] = "mine?"
+    #    self.hi_there["command"] = self.destroy
+     #   self.hi_there.grid(row=ligne,column=colonne)
+#
+
+  #  def destroy(self):
+ #       global ligne,colonne
+   #     self.grid_forget()
 
 
 def open_github():
@@ -109,63 +129,41 @@ def minetoucher():
 
 
 tabnb=[[0,0]]*191
-tabm=[0]*190
+tabm=[0]*191
 i=1
 z=1
 e=1
 
-def disparait(Button):
-  #  Button.['text']='rien'
-    Button.pack_forget()
-def change_nom_proche():
-    globals()
-    tab[12].config(text="proche")
-#def change_nom_rien(i):
-#    globals()
-#    tab[i]['text'] = 'rien'
+def disparait(i):
+    tab[i]['text']='rien'
 
-#e=64
-#while 1==0:
-#    if e<64 or e=None:
-#        e=0
-#   zz=0
-#    xx=0
-#    if tabm[e]==1:
-#        i=i
-#    elif tabm[e+1] or tabm[e-1]:
-#       i=i
-#    elif tabnb[e][0] == xmin1 and tabnb[e][1] == ymin1 or tabnb[e][0] == xmin2 and tabnb[e][1] == ymin2 or tabnb[e[0] == xmin3 and tabnb[e][1] == ymin3 or tabnb[e][0] == xmin4 and tabnb[e][1] == ymin4:
-#        zz=tabnb[e][1]
-#        xx=tabnb[e][1]
-#        tab[e]=Button(fenetre, text="proche").grid(row=lignee, column=colonnee)
-#    else:
-#        tab[e].destroy()
- #   if e>85:
-#        e=64
-#    else:
-#        e=e+1
-tabe=[0]*200
+def change_nom_proche(i):
+    tab[i].config(text="proche")
 
-# creation grille button dans une matrice 
+
+
+
+# creation grille button dans une matrice
 i=1
+def suprimer(i):
+    tab[i].grid_forget()
+
+
+
 for ligne in range(19):
     for colonne in range(10):
         if ligne == xmin1 and colonne == ymin1 or ligne == xmin2 and colonne == ymin2 or ligne == xmin3 and colonne == ymin3 or ligne == xmin4 and colonne == ymin4:
-            tab[i]=Button(fenetre, text="mine0", command=minetoucher,bg='#111111').grid(row=ligne, column=colonne)
-            tabnb[i][0]=ligne
-            tabnb[i][1]=colonne
-            tabm[i]=1
+            tab[i]=Button(fenetre, text="mine0", command=lambda i=i: tab[i].grid_forget and point,bg='#111111')
+            tab[i].grid(row=ligne, column=colonne)
             print("a", i)
         elif ligne == xmin1 - 1 or ligne == xmin1 + 1 and colonne == ymin1 - 1 or colonne == ymin1 + 1 and ligne == xmin2 - 1 or ligne == xmin2 + 1 and colonne == ymin2 - 1 or colonne == ymin2 + 1 and ligne == xmin3 - 1 or ligne == xmin3 + 1 and colonne == ymin3 - 1 or colonne == ymin3 + 1 and ligne == xmin4 - 1 or ligne == xmin4 + 1 and colonne == ymin4 - 1 or colonne == ymin4 + 1:
-                tab[i]=Button(fenetre, text="mine?",command=change_nom_proche and point).grid(row=ligne, column=colonne)
-                tabnb[i][0] = ligne
-                tabnb[i][1] = colonne
-                print("2",i)
+             tab[i]=Button(fenetre, text="mine?",command=lambda i=i: change_nom_proche(i) and point)
+             tab[i].grid(row=ligne, column=colonne)
+             print("2",i)
         else:
-                tab[i] = Button(fenetre, text="mine?", command=disparait and point).grid(row=ligne, column=colonne)
-                print(i)
+            tab[i] = Button(fenetre, text="mine?", command=lambda i=i: suprimer (i) and print(i))
+            tab[i].grid(row=ligne,column=colonne)
+            print(i)
         i=i+1
-    z=z+1
-    nb += 1
 
 window.mainloop()
