@@ -9,7 +9,7 @@ from time import sleep
 # fenetre démineur
 fenetre = Tk()
 fenetre.title("démineur")
-fenetre.geometry("430x465")
+fenetre.geometry("430x493")
 fenetre.minsize(410, 465)
 fenetre.config(background='#FFFFFF')
 
@@ -77,16 +77,11 @@ quit_buttion.pack(side=BOTTOM, pady=50)
 frame.pack(expand=YES)
 
 #position mine
-xmin1 = randint(0, 18)
-ymin1 = randint(0, 9)
-xmin2 = randint(0, 18)
-ymin2 = randint(0, 9)
-xmin3 = randint(0, 19)
-ymin3 = randint(0, 9)
-xmin4 = randint(0, 18)
-ymin4 = randint(0, 9)
+tabmine=[[0,0]]
 
-print(xmin1,ymin1,xmin2,ymin2,xmin3,ymin3,xmin4,ymin4)
+for i in range (4):
+    tabmine.append([randint(0,18),randint(0,9)])
+print(tabmine)
 nb = 1
 tab=[Button]*200
 score=0
@@ -148,18 +143,30 @@ i=1
 def suprimer(i):
     tab[i].grid_forget()
 
-
+z=0
 
 for ligne in range(19):
     for colonne in range(10):
-        if ligne == xmin1 and colonne == ymin1 or ligne == xmin2 and colonne == ymin2 or ligne == xmin3 and colonne == ymin3 or ligne == xmin4 and colonne == ymin4:
+        if ligne == tabmine[1][0] and colonne == tabmine[1][1] or  ligne == tabmine[2][0] and colonne == tabmine[2][1] or ligne == tabmine[3][0] and colonne == tabmine[3][1] or ligne == tabmine[4][0] and colonne == tabmine[4][1] :
             tab[i]=Button(fenetre, text="mine0", command=lambda i=i: tab[i].grid_forget and point,bg='#111111')
             tab[i].grid(row=ligne, column=colonne)
             print("a", i)
-        elif ligne == xmin1 - 1 or ligne == xmin1 + 1 and colonne == ymin1 - 1 or colonne == ymin1 + 1 and ligne == xmin2 - 1 or ligne == xmin2 + 1 and colonne == ymin2 - 1 or colonne == ymin2 + 1 and ligne == xmin3 - 1 or ligne == xmin3 + 1 and colonne == ymin3 - 1 or colonne == ymin3 + 1 and ligne == xmin4 - 1 or ligne == xmin4 + 1 and colonne == ymin4 - 1 or colonne == ymin4 + 1:
-             tab[i]=Button(fenetre, text="mine?",command=lambda i=i: change_nom_proche(i) and point)
-             tab[i].grid(row=ligne, column=colonne)
-             print("2",i)
+        elif  ((ligne== tabmine[1][0] - 1 or ligne == tabmine[1][0] + 1 or ligne == tabmine[1][0]) and (colonne == tabmine[1][1] - 1 or colonne == tabmine[1][1] + 1 )) or ((ligne== tabmine[1][0] - 1 or ligne == tabmine[1][0] + 1) and (colonne == tabmine[1][1] - 1 or colonne == tabmine[1][1] + 1 or colonne == tabmine[1][1])):
+            tab[i]=Button(fenetre, text="mine?",bg='#DC1010',command=lambda i=i: change_nom_proche(i) and point)
+            tab[i].grid(row=ligne, column=colonne)
+            print("2",i)
+        elif  ((ligne== tabmine[2][0] - 1 or ligne == tabmine[2][0] + 1 or ligne == tabmine[2][0]) and (colonne == tabmine[2][1] - 1 or colonne == tabmine[2][1] + 1 )) or ((ligne== tabmine[2][0] - 1 or ligne == tabmine[2][0] + 1) and (colonne == tabmine[2][1] - 1 or colonne == tabmine[2][1] + 1 or colonne == tabmine[2][1])):
+            tab[i]=Button(fenetre, text="mine?",bg='#DC1010',command=lambda i=i: change_nom_proche(i) and point)
+            tab[i].grid(row=ligne, column=colonne)
+            print("2",i)
+        elif  ((ligne== tabmine[3][0] - 1 or ligne == tabmine[3][0] + 1 or ligne == tabmine[3][0]) and (colonne == tabmine[3][1] - 1 or colonne == tabmine[3][1] + 1 )) or( (ligne== tabmine[3][0] - 1 or ligne == tabmine[3][0] + 1 ) and (colonne == tabmine[3][1] - 1 or colonne == tabmine[3][1] + 1 or colonne == tabmine[3][1])):
+            tab[i] = Button(fenetre, text="mine?",bg='#DC1010', command=lambda i=i: change_nom_proche(i) and point)
+            tab[i].grid(row=ligne, column=colonne)
+            print("2", i)
+        elif  ((ligne== tabmine[4][0] - 1 or ligne == tabmine[4][0] + 1 or ligne == tabmine[4][0]) and (colonne == tabmine[4][1] - 1 or colonne == tabmine[4][1] + 1 )) or ((ligne== tabmine[4][0] - 1 or ligne == tabmine[4][0] + 1 ) and (colonne == tabmine[4][1] - 1 or colonne == tabmine[4][1] + 1 or colonne == tabmine[4][1])) :
+            tab[i] = Button(fenetre, text="mine?",bg='#DC1010', command=lambda i=i: change_nom_proche(i) and point)
+            tab[i].grid(row=ligne, column=colonne)
+            print("2", i)
         else:
             tab[i] = Button(fenetre, text="mine?", command=lambda i=i: suprimer (i) and print(i))
             tab[i].grid(row=ligne,column=colonne)
