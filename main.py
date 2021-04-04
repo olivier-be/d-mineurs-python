@@ -1,7 +1,7 @@
-from random import *
-from tkinter import *
+from random import randint
+from tkinter import Tk, messagebox, BOTTOM, PanedWindow, LEFT, Frame, Label, YES, Button
 import webbrowser
-from tkinter import messagebox
+
 
 window=Tk()
 window.title("démineur")
@@ -37,8 +37,8 @@ def acces_credit():
     fenetre_credit.config(background='#FFFFFF')
     fenetre.quit()
     fenetre_credit.mainloop()
-    textedebut = Label(fenetre_credit, text="bienvenue sur le démineur", font=("Courrier", 40), bg='#FFFFFF')
-    textedebut.pack(expand=YES)
+    texte_debut = Label(fenetre_credit, text="bienvenue sur le démineur", font=("Courrier", 40), bg='#FFFFFF')
+    texte_debut.pack(expand=YES)
     credit = Label(fenetre_credit, text="réaliser par ", font=("Courrier", 20), bg='#FFFFFF')
     credit.pack(expand=YES)
     gt_buttion = Button(fenetre_credit, text="ouvrir github", font=("Courrier", 20), bg='#FFFFFF', command=open_github)
@@ -49,11 +49,11 @@ button=Button(left_window,text="credit",command=acces_credit,width=20)
 button.pack(side=LEFT)
 
 #position mine
-tabmine=[[0,0]]
+tab_mine=[[0, 0]]
 
 for i in range (4):
-    tabmine.append([randint(0,18),randint(0,9)])
-print(tabmine)
+    tab_mine.append([randint(0, 18), randint(0, 9)])
+print(tab_mine)
 nb = 1
 tab=[Button]*200
 score=0
@@ -62,8 +62,8 @@ score=0
 def point():
     global score
     score=score+1
+    print("point")
     return score
-
 
 def minetoucher():
     print("vous avez perdu")
@@ -91,18 +91,18 @@ def verification(i,ligne,colonne):
         ligne = tabl[e][0]
         colonne = tabl[e][1]
         print("start", ligne, colonne)
-        for p in range(2):
-            if ligne + 1 != tabmine[p][0] and colonne != tabmine[p][1] and tab[e] != tabl[e].grid_forget :
+        for p in range(4):
+            if ligne + 1 != tab_mine[p][0] and colonne != tab_mine[p][1] and tab[e] != tabl[e].grid_forget :
                 tab[e].grid_forget()
-            elif ligne == tabmine[1][0] and colonne + 1 == tabmine[1][1] and tab[e] != tabl[e].grid_forget:
+            elif ligne == tab_mine[1][0] and colonne + 1 == tab_mine[1][1] and tab[e] != tabl[e].grid_forget:
                 tab[e].grid_forget()
-            elif ligne == tabmine[1][0] and colonne - 1 == tabmine[1][1] and tab[e] != tabl[e].grid_forget:
+            elif ligne == tab_mine[1][0] and colonne - 1 == tab_mine[1][1] and tab[e] != tabl[e].grid_forget:
                 tab[e].grid_forget()
-            elif ligne - 1 == tabmine[1][0] and colonne == tabmine[1][1] and tab[e] != tabl[e].grid_forget:
+            elif ligne - 1 == tab_mine[1][0] and colonne == tab_mine[1][1] and tab[e] != tabl[e].grid_forget:
                 tab[e].grid_forget()
             else:
                 u=1
-        if u==0:
+        if u==1:
             print("vérifier")
             z = 1
         e = e + 1
@@ -114,19 +114,16 @@ def change_nom_proche(i,ligne,colonne):
 
 # creation grille button dans une matrice
 
-
 def suprimer(i,ligne,colonne):
-    globals()
     tab[i].grid_forget()
     Label(fenetre,text="0",width=5).grid(row=ligne, column=colonne)
     verification(i, ligne, colonne)
 
-z=0
 tabl=tab
 test=0
 for ligne in range(19):
     for colonne in range(10):
-        if ligne == tabmine[1][0] and colonne == tabmine[1][1] or  ligne == tabmine[2][0] and colonne == tabmine[2][1] or ligne == tabmine[3][0] and colonne == tabmine[3][1] or ligne == tabmine[4][0] and colonne == tabmine[4][1] :
+        if ligne == tab_mine[1][0] and colonne == tab_mine[1][1] or  ligne == tab_mine[2][0] and colonne == tab_mine[2][1] or ligne == tab_mine[3][0] and colonne == tab_mine[3][1] or ligne == tab_mine[4][0] and colonne == tab_mine[4][1] :
             tab[i]=Button(fenetre, text="mine0", command=minetoucher)
             tab[i].grid(row=ligne, column=colonne)
             tabl[i]=Label(fenetre,text="2",width=5)
@@ -134,17 +131,18 @@ for ligne in range(19):
             tabnb[i][1] = colonne
             test = 1
             print("a", i)
-        for t in range(4):
-            if((ligne== tabmine[t+1][0] - 1 or ligne == tabmine[t+1][0] + 1 or ligne == tabmine[t+1][0]) and (colonne == tabmine[t+1][1] - 1 or colonne == tabmine[t+1][1] + 1 )) or ((ligne== tabmine[t+1][0] - 1 or ligne == tabmine[t+1][0] + 1) and (colonne == tabmine[t+1][1] - 1 or colonne == tabmine[t+1][1] + 1 or colonne == tabmine[t+1][1])):
-                    tab[i]=Button(fenetre, text="mine?",bg='#DC1010',width=5,command=lambda i=i,ligne=ligne,colonne=colonne: change_nom_proche(i,ligne,colonne) and point)
-                    tab[i].grid(row=ligne, column=colonne)
-                    tabl[i]=Label(fenetre, text="1", width=5)
-                    tabnb[i][0] = ligne
-                    tabnb[i][1] = colonne
-                    test=1
-                    print("2",i)
+        if test==0:
+            for t in range(4):
+                if((ligne == tab_mine[t + 1][0] - 1 or ligne == tab_mine[t + 1][0] + 1 or ligne == tab_mine[t + 1][0]) and (colonne == tab_mine[t + 1][1] - 1 or colonne == tab_mine[t + 1][1] + 1)) or ((ligne == tab_mine[t + 1][0] - 1 or ligne == tab_mine[t + 1][0] + 1) and (colonne == tab_mine[t + 1][1] - 1 or colonne == tab_mine[t + 1][1] + 1 or colonne == tab_mine[t + 1][1])):
+                        tab[i]=Button(fenetre, text="mine?",bg='#DC1010',width=5,command=lambda i=i,ligne=ligne,colonne=colonne: change_nom_proche(i,ligne,colonne) and point() )
+                        tab[i].grid(row=ligne, column=colonne)
+                        tabl[i]=Label(fenetre, text="1", width=5)
+                        tabnb[i][0] = ligne
+                        tabnb[i][1] = colonne
+                        test=1
+                        print("2",i)
         if test<1:
-            tab[i] = Button(fenetre, text="mine?",width=5, command=lambda i=i,ligne=ligne,colonne=colonne: suprimer (i,ligne,colonne) and print(i))
+            tab[i] = Button(fenetre, text="mine?",width=5, command=lambda i=i,ligne=ligne,colonne=colonne: suprimer (i,ligne,colonne)  and point() and print(i))
             tab[i].grid(row=ligne,column=colonne)
             tabl[i]=Label(fenetre, text="0", width=5)
             tabnb[i][0] = ligne
