@@ -118,6 +118,7 @@ def suprimer(i,ligne,colonne):
     tab[i].grid_forget()
     Label(fenetre,text="0",width=5).grid(row=ligne, column=colonne)
     verification(i, ligne, colonne)
+    point()
 
 tabl=tab
 test=0
@@ -142,7 +143,7 @@ for ligne in range(19):
                         test=1
                         print("2",i)
         if test<1:
-            tab[i] = Button(fenetre, text="mine?",width=5, command=lambda i=i,ligne=ligne,colonne=colonne: suprimer (i,ligne,colonne)  and point() and print(i))
+            tab[i] = Button(fenetre, text="mine?",width=5, command=lambda i=i,ligne=ligne,colonne=colonne: suprimer (i,ligne,colonne) and print(i))
             tab[i].grid(row=ligne,column=colonne)
             tabl[i]=Label(fenetre, text="0", width=5)
             tabnb[i][0] = ligne
