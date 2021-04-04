@@ -1,4 +1,4 @@
-import webbrowser
+
 from random import randint
 from tkinter import Tk, messagebox, BOTTOM, PanedWindow, LEFT, Frame, Label, YES, Button
 
@@ -53,13 +53,21 @@ button_menu = Button(left_window, text="menu", width=15).grid(row=17,column=0)
 with open("score.txt","r") as file:
     tab_score= file.readlines()
     print(tab_score)
-    tab_score.sort(reverse = True)
+    tab_scorer=["a"]*(len(tab_score))
+    n=0
+    for t in range(len(tab_scorer),0,-1):
+        tab_scorer[t-1]=tab_score[n]
+        n+=1
+        print(t)
+    print(tab_scorer)
     nb_ligne=8
-    if len(tab_score)<8:
-        nb_ligne=len(tab_score)
-    for p in range(nb_ligne):
+    if len(tab_scorer)<8:
+        nb_ligne=len(tab_scorer)
+    tab_scorela=[Button]*len(tab_scorer)
+    for m in range(nb_ligne):
         print("a")
-        Label(score_board, text="score precedent = {}".format(p,tab_score[p]), width=15).grid(row=p, column=0)
+        print(tab_scorer[m])
+        tab_scorela[m]=Label(score_board, text="{} score prec = {}".format(m,tab_scorer[m]), width=15).grid(row=m, column=0)
     file.close()
 
 
