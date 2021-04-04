@@ -1,4 +1,4 @@
-
+import webbrowser
 from random import randint
 from tkinter import Tk, messagebox, BOTTOM, PanedWindow, LEFT, Frame, Label, YES, Button
 
@@ -88,7 +88,15 @@ def point():
     print(str(score))
     scoree=str(score)
     scorec = Label(left_window, text=scoree, width=15).grid(row=0, column=0)
+    if score>185:
+        messagebox.showerror(title="démineur",message=" tu as gagner \n partie termier !\n ton score est de {}".format(score))
+        with open("../pythonProject5/score.txt", "a+") as files:
+            files.write(str(score) + "\n")
+            print(score)
+            files.close()
+        window.quit()
     return score
+
 
 def minetoucher():
     print("vous avez perdu")
@@ -141,6 +149,7 @@ def verification(i, ligne, colonne):
 def change_nom_proche(i, ligne, colonne):
     tab[i].grid_forget()
     Label(fenetre, text="1", width=5).grid(row=ligne, column=colonne)
+    point()
     #verification(i, ligne, colonne)
 
 # creation grille button dans une matrice
@@ -167,7 +176,7 @@ for ligne in range(19):
                 if ((ligne == tab_mine[t + 1][0] - 1 or ligne == tab_mine[t + 1][0] + 1 or ligne == tab_mine[t + 1][0]) and (colonne == tab_mine[t + 1][1] - 1 or colonne == tab_mine[t + 1][1] + 1)) or ((ligne == tab_mine[t + 1][0] - 1 or ligne == tab_mine[t + 1][0] + 1) and (colonne == tab_mine[t + 1][1] - 1 or colonne == tab_mine[t + 1][1] + 1 or colonne ==
                         tab_mine[t + 1][1])):
                     tab[i] = Button(fenetre, text="mine?", bg='#DC1010', width=5,
-                                    command=lambda i=i, ligne=ligne, colonne=colonne: change_nom_proche(i, ligne,colonne) and point()).grid(row=ligne, column=colonne)
+                                    command=lambda i=i, ligne=ligne, colonne=colonne: change_nom_proche(i, ligne,colonne)and print(i)).grid(row=ligne, column=colonne)
                     tabl[i] = Label(fenetre, text="1", width=5)
                     tabnb[i][0] = ligne
                     tabnb[i][1] = colonne
