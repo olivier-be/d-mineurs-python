@@ -1,11 +1,11 @@
-ebbrowser
+import webbrowser
 from random import randint
 from tkinter import Tk, messagebox, BOTTOM, PanedWindow, LEFT, Frame, Label, YES, Button
 
 window = Tk()
 window.title("démineur")
-window.geometry("558x493")
-window.minsize(568, 493)
+window.geometry("575x493")
+window.minsize(575, 493)
 window.config(background='#FFFFFF')
 
 # fenetre démineur
@@ -17,9 +17,9 @@ window.iconbitmap("démineur.ico")
 score_board = ()
 
 # fenetre score board
-left_window = Frame(window)
-left_window.pack(side=BOTTOM)
-left_window.config(background='#FFFFFF')
+left_window = PanedWindow(window, borderwidth=4,relief='groove')
+left_window.pack()
+left_window.config(background='#FFFFFF',width=20)
 
 # sous fentre 1
 def acces_credit():
@@ -31,6 +31,7 @@ def acces_credit():
 
     fenetre_credit = Tk()
     fenetre_credit.title("démineur")
+    window.iconbitmap("démineur.ico")
     fenetre_credit.geometry("1080x720")
     fenetre_credit.minsize(1080, 720)
     fenetre_credit.config(background='#FFFFFF')
@@ -46,8 +47,8 @@ def acces_credit():
     frame.pack()
     fenetre_credit.mainloop()
 
-button = Button(left_window, text="credit", command=acces_credit, width=20)
-button.pack(side=LEFT)
+button_credit = Button(left_window, text="credit", command=acces_credit, width=15).grid(row=12,column=0)
+button_menu = Button(left_window, text="menu", width=15).grid(row=17,column=0)
 
 # position mine
 tab_mine = [[0, 0]]
@@ -58,12 +59,14 @@ print(tab_mine)
 nb = 1
 tab = [Button] * 200
 score = 0
-
+scorec = Label(left_window, text= "0", width=15).grid(row=0, column=0)
 # score ( case déactiver avant de toucher une mine )
 def point():
-    global score
+    global score,scorec
     score = score + 1
-    print("point")
+    print(str(score))
+    scoree=str(score)
+    scorec = Label(left_window, text=scoree, width=15).grid(row=0, column=0)
     return score
 
 def minetoucher():
@@ -117,14 +120,14 @@ def verification(i, ligne, colonne):
 def change_nom_proche(i, ligne, colonne):
     tab[i].grid_forget()
     Label(fenetre, text="1", width=5).grid(row=ligne, column=colonne)
-    verification(i, ligne, colonne)
+    #verification(i, ligne, colonne)
 
 # creation grille button dans une matrice
 
 def suprimer(i, ligne, colonne):
     tab[i].grid_forget()
     Label(fenetre, text="0", width=5).grid(row=ligne, column=colonne)
-    verification(i, ligne, colonne)
+    #verification(i, ligne, colonne)
     point()
 
 tabl = tab
@@ -160,5 +163,4 @@ for ligne in range(19):
         test = 0
 
 window.mainloop()
-
 
