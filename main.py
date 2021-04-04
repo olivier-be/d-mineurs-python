@@ -13,13 +13,15 @@ fenetre = PanedWindow(window)
 fenetre.pack(side=LEFT)
 fenetre.config(background='#FFFFFF')
 window.iconbitmap("démineur.ico")
-# score board
-score_board = ()
 
 # fenetre score board
 left_window = PanedWindow(window, borderwidth=4,relief='groove')
 left_window.pack()
 left_window.config(background='#FFFFFF',width=20)
+# score board
+score_board =PanedWindow(window, borderwidth=4,relief='groove')
+score_board.pack()
+score_board.config(background='#FFFFFF',width=20)
 
 # sous fentre 1
 def acces_credit():
@@ -27,7 +29,7 @@ def acces_credit():
         webbrowser.open_new("https://github.com/olivier-be/d-mineurs-python")
 
     def fermer_fenetre():
-        frame.quit()
+        fenetre_credit.quit()
 
     fenetre_credit = Tk()
     fenetre_credit.title("démineur")
@@ -46,9 +48,20 @@ def acces_credit():
     quit_buttion.pack(side=BOTTOM, pady=50)
     frame.pack()
     fenetre_credit.mainloop()
-
 button_credit = Button(left_window, text="credit", command=acces_credit, width=15).grid(row=12,column=0)
 button_menu = Button(left_window, text="menu", width=15).grid(row=17,column=0)
+with open("score.txt","r") as file:
+    tab_score= file.readlines()
+    print(tab_score)
+    tab_score.sort(reverse = True)
+    nb_ligne=8
+    if len(tab_score)<8:
+        nb_ligne=len(tab_score)
+    for p in range(nb_ligne):
+        print("a")
+        Label(score_board, text="score precedent = {}".format(p,tab_score[p]), width=15).grid(row=p, column=0)
+    file.close()
+
 
 # position mine
 tab_mine = [[0, 0]]
@@ -71,14 +84,14 @@ def point():
 
 def minetoucher():
     print("vous avez perdu")
-    global score
+    global score,fenetre_credit
     messagebox.showerror(title="démineur",message=" tu as perdu \n partie termier !\n ton score est de {}".format(score))
     score = str(score)
     with open("../pythonProject5/score.txt", "a+") as file:
         file.write(score + "\n")
         print(score)
         file.close()
-
+    window.quit()
     return 0
 
 tabnb = [[0, 0]] * 191
@@ -163,4 +176,3 @@ for ligne in range(19):
         test = 0
 
 window.mainloop()
-
