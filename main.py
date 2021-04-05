@@ -82,12 +82,12 @@ score = 0
 scorec = Label(left_window, text= "0", width=15).grid(row=0, column=0)
 # score ( case déactiver avant de toucher une mine )
 def point():
-    global score,scorec
+    global score,scorec,nbmine
     score = score + 1
     print(str(score))
     scoree=str(score)
     scorec = Label(left_window, text=scoree, width=15).grid(row=0, column=0)
-    if score>185:
+    if score>190-nbmine:
         messagebox.showerror(title="démineur",message=" tu as gagner \n partie termier !\n ton score est de {}".format(score))
         with open("../pythonProject5/score.txt", "a+") as files:
             files.write(str(score) + "\n")
@@ -114,49 +114,55 @@ tabm = [0] * 191
 i = 1
 z = 1
 e = 1
+def verification_recus(i, ligne, colonne):
+    global tab,tabnb,nbmine
+    for e in range(2):
+        u = 0
+        print(e)
+        print("start", ligne, colonne)
+        p = 0
+        while (u < 4):
+            if [ligne, colonne] in tabnb:
+                print("débbug")
+                for x in range(-2, 1, 2):
+                    print("x")
+                    for b in range(nbmine):
+                        if ligne != tab_mine[b][0] and colonne +x != tab_mine[b][1]:
+                            if tab[i+b-i] != tab[i+b-i].grid_forget():
+                                u=u+1
+                            else:
+                                tab[i + b - i].grid_forget()
+                                i=i+x
+                            print("a")
+                        elif ligne + x == tab_mine[b][0] and colonne == tab_mine[b][1]:
+                            if tab[i+x]!= tab[i+x].grid_forget():
+                                u=u+1
+                            else:
+                               tab[i+x].grid_forget()
+                            print("e")
+                            i = i + x
+                    if u>=4:
+                        return None
 
+            p = p + 1
 def verification(i, ligne, colonne):
     z = 0
     global tab
     print("start", ligne, colonne)
-    for e in range (2):
-        u = 0
-        v=ligne
-        print(e)
-        print("start", ligne, colonne)
-        p=0
-
-        while (u==0 or u==1 or u==2 or u==3 or u==4):
-            for b in range(191):
-                if [ligne,colonne]in tabnb:
-                    for x in range(-2,1,2):
-                        if ligne + x != tab_mine[b][0] and colonne != tab_mine[b][1] and tab[b] != tabl[b].grid_forget:
-                            print("a")
-                        elif ligne == tab_mine[b][0] and colonne + x == tab_mine[b][1] and tab[b] != tabl[b].grid_forget:
-                            tab[e+p].grid_forget()
-                            print("e")
-                        else:
-                            u += 1
-            p=p+1
-        if u == 3:
-            print("vérifier")
-            z = 1
-            p+=1
-        ligne = tabnb[e + i][0]
-        colonne = tabnb[e + i][1]
+    #verification_recus(i, ligne, colonne)
 
 def change_nom_proche(i, ligne, colonne):
     tab[i].grid_forget()
     Label(fenetre, text="1", width=5).grid(row=ligne, column=colonne)
     point()
-    #verification(i, ligne, colonne)
+    verification(i, ligne, colonne)
 
 # creation grille button dans une matrice
 
 def suprimer(i, ligne, colonne):
     tab[i].grid_forget()
     Label(fenetre, text="0", width=5).grid(row=ligne, column=colonne)
-    #verification(i, ligne, colonne)
+    verification(i, ligne, colonne)
     point()
 
 tabl = tab
@@ -164,7 +170,7 @@ test = 0
 
 for ligne in range(19):
     for colonne in range(10):
-        for y in range (nbmine):
+        for y in range (nbmine+1):
             if ligne == tab_mine[y][0] and colonne == tab_mine[y][1]:
                 tab[i] = Button(fenetre, text="mine0", command=minetoucher).grid(row=ligne, column=colonne)
                 tabl[i] = Label(fenetre, text="2", width=5)
