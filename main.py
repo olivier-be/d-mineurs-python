@@ -170,8 +170,8 @@ test = 0
 
 for ligne in range(19):
     for colonne in range(10):
-        for y in range (nbmine+1):
-            if ligne == tab_mine[y][0] and colonne == tab_mine[y][1]:
+        for y in range (nbmine):
+            if ligne == tab_mine[y+1][0] and colonne == tab_mine[y+1][1]:
                 tab[i] = Button(fenetre, text="mine0", command=minetoucher).grid(row=ligne, column=colonne)
                 tabl[i] = Label(fenetre, text="2", width=5)
                 tabnb[i][0] = ligne
@@ -200,4 +200,3 @@ for ligne in range(19):
         test = 0
 
 window.mainloop()
-
