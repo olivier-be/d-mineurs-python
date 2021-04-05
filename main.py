@@ -70,11 +70,10 @@ with open("score.txt","r") as file:
         tab_scorela[m]=Label(score_board, text="{} score prec = {}".format(m,tab_scorer[m]), width=15).grid(row=m, column=0)
     file.close()
 
-
+nbmine=10
 # position mine
 tab_mine = [[0, 0]]
-
-for i in range(4):
+for i in range(nbmine):
     tab_mine.append([randint(0, 18), randint(0, 9)])
 print(tab_mine)
 nb = 1
@@ -162,17 +161,19 @@ def suprimer(i, ligne, colonne):
 
 tabl = tab
 test = 0
+
 for ligne in range(19):
     for colonne in range(10):
-        if ligne == tab_mine[1][0] and colonne == tab_mine[1][1] or ligne == tab_mine[2][0] and colonne == tab_mine[2][1] or ligne == tab_mine[3][0] and colonne == tab_mine[3][1] or ligne == tab_mine[4][0] and colonne == tab_mine[4][1]:
-            tab[i] = Button(fenetre, text="mine0", command=minetoucher).grid(row=ligne, column=colonne)
-            tabl[i] = Label(fenetre, text="2", width=5)
-            tabnb[i][0] = ligne
-            tabnb[i][1] = colonne
-            test = 1
-            print("a", i)
+        for y in range (nbmine):
+            if ligne == tab_mine[y][0] and colonne == tab_mine[y][1]:
+                tab[i] = Button(fenetre, text="mine0", command=minetoucher).grid(row=ligne, column=colonne)
+                tabl[i] = Label(fenetre, text="2", width=5)
+                tabnb[i][0] = ligne
+                tabnb[i][1] = colonne
+                test = 1
+                print("a", i)
         if test == 0:
-            for t in range(4):
+            for t in range(nbmine):
                 if ((ligne == tab_mine[t + 1][0] - 1 or ligne == tab_mine[t + 1][0] + 1 or ligne == tab_mine[t + 1][0]) and (colonne == tab_mine[t + 1][1] - 1 or colonne == tab_mine[t + 1][1] + 1)) or ((ligne == tab_mine[t + 1][0] - 1 or ligne == tab_mine[t + 1][0] + 1) and (colonne == tab_mine[t + 1][1] - 1 or colonne == tab_mine[t + 1][1] + 1 or colonne ==
                         tab_mine[t + 1][1])):
                     tab[i] = Button(fenetre, text="mine?", bg='#DC1010', width=5,
@@ -193,3 +194,4 @@ for ligne in range(19):
         test = 0
 
 window.mainloop()
+
