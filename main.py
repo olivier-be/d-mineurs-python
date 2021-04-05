@@ -114,68 +114,86 @@ tabm = [0] * 191
 i = 1
 z = 1
 e = 1
-def verification_recus(i, ligne, colonne):
-    global tab,tabnb,nbmine
-    for e in range(2):
-        u = 0
-        print(e)
-        print("start", ligne, colonne)
-        p = 0
-        while (u < 4):
-            if [ligne, colonne] in tabnb:
-                print("débbug")
-                for x in range(-2, 1, 2):
-                    print("x")
-                    for b in range(nbmine):
-                        if ligne != tab_mine[b][0] and colonne +x != tab_mine[b][1]:
-                            if tab[i+b-i] != tab[i+b-i].grid_forget():
-                                u=u+1
-                            else:
-                                tab[i + b - i].grid_forget()
-                                i=i+x
-                            print("a")
-                        elif ligne + x == tab_mine[b][0] and colonne == tab_mine[b][1]:
-                            if tab[i+x]!= tab[i+x].grid_forget():
-                                u=u+1
-                            else:
-                               tab[i+x].grid_forget()
-                            print("e")
-                            i = i + x
-                    if u>=4:
-                        return None
+tab_mine_proche=[[0,0]]*(6*nbmine+2)
+def supprimer_tab(i):
+    tab[i].grid_forget()
+def verification_recus(n, ligne, colonne):
+    print("start verification ligne:",ligne)
+    k=1
+    m=1
+    print(i," aaaaaaaaaaaaaaaaaaaaaaaaaaa")
+    ligne2=ligne
+    colonne2=colonne
+    ligne3=ligne
+    colonne3=colonne
+    while colonne != 10:
+        global tabnb
+        print(n, " aaaaaaaaaaaaaaaaaaaaaaaaaaa")
+        print("start verification colonne:",colonne)
+        colonne += 1
+        y=n+(20*m)
+        print(tabnb[y],m)
+        #supprimer_tab(i+(20*m))
+        m=m+1
+    while colonne2 !=0:
+        colonne2 -= 1
+        print(n -(20 * k))
+        supprimer_tab(n -(20 * k))
 
-            p = p + 1
+
+def verif1(i, ligne2, colonne2,m):
+    global tabnb,tab
+    print(i,"= i ",m,"= m")
+    if [ligne,colonne+1]in tab_mine or[ligne,colonne+1] in tab_mine_proche:
+        i=i
+    if colonne2 <= 8:
+        colonne2 += 1
+        print("verifie colonne",colonne2)
+        i = i +1
+        print(i)
+        tab[i+(20*m)].destroy()
+        m+=1
+        verif1(i, ligne2, colonne2,m)
+
+
+
 def verification(i, ligne, colonne):
     z = 0
-    global tab
+    global tab,tabnb
     print("start", ligne, colonne)
-    #verification_recus(i, ligne, colonne)
+    print("start verification ligne:", ligne)
+    k = 1
+    m = 1
+    print(i, " aaaaaaaaaaaaaaaaaaaaaaaaaaa")
+    verif1(i, ligne, colonne,m)
+
+
 
 def change_nom_proche(i, ligne, colonne):
     tab[i].grid_forget()
     Label(fenetre, text="1", width=5).grid(row=ligne, column=colonne)
     point()
-    verification(i, ligne, colonne)
+
 
 # creation grille button dans une matrice
 
 def suprimer(i, ligne, colonne):
     tab[i].grid_forget()
     Label(fenetre, text="0", width=5).grid(row=ligne, column=colonne)
+    print(i)
     verification(i, ligne, colonne)
     point()
 
 tabl = tab
 test = 0
-
+b=1
 for ligne in range(19):
     for colonne in range(10):
-        for y in range (nbmine):
+        for y in range (nbmine+1):
             if ligne == tab_mine[y+1][0] and colonne == tab_mine[y+1][1]:
                 tab[i] = Button(fenetre, text="mine0", command=minetoucher).grid(row=ligne, column=colonne)
                 tabl[i] = Label(fenetre, text="2", width=5)
-                tabnb[i][0] = ligne
-                tabnb[i][1] = colonne
+                tabnb[i]= [ligne,colonne]
                 test = 1
                 print("a", i)
         if test == 0:
@@ -185,18 +203,19 @@ for ligne in range(19):
                     tab[i] = Button(fenetre, text="mine?", bg='#DC1010', width=5,
                                     command=lambda i=i, ligne=ligne, colonne=colonne: change_nom_proche(i, ligne,colonne)and print(i)).grid(row=ligne, column=colonne)
                     tabl[i] = Label(fenetre, text="1", width=5)
-                    tabnb[i][0] = ligne
-                    tabnb[i][1] = colonne
+                    tab_mine_proche[b]=[ligne,colonne]
+                    tabnb[i] = [ligne, colonne]
+                    b+=1
                     test = 1
                     print("2", i)
         if test < 1:
             tab[i] = Button(fenetre, text="mine?", width=5,
                             command=lambda i=i, ligne=ligne, colonne=colonne: suprimer(i, ligne, colonne) and print(i)).grid(row=ligne, column=colonne)
             tabl[i] = Label(fenetre, text="0", width=5)
-            tabnb[i][0] = ligne
-            tabnb[i][1] = colonne
+            tabnb[i] = [ligne, colonne]
             print(i)
         i = i + 1
         test = 0
+print(tabnb)
 
 window.mainloop()
