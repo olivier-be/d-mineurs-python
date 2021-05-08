@@ -1,7 +1,9 @@
-ser
+import webbrowser
 from random import randint
 from tkinter import Tk, messagebox, BOTTOM, PanedWindow, LEFT, Frame, Label, YES, Button
 
+#donner position du ficher score.txt
+accesficher=""
 window = Tk()
 window.title("démineur")
 window.geometry("575x493")
@@ -87,9 +89,9 @@ def point():
     print(str(score))
     scoree=str(score)
     scorec = Label(left_window, text=scoree, width=15).grid(row=0, column=0)
-    if score>190-nbmine:
+    if score>190-nbmine+3:
         messagebox.showerror(title="démineur",message=" tu as gagner \n partie termier !\n ton score est de {}".format(score))
-        with open("../pythonProject5/score.txt", "a+") as files:
+        with open(accesficher, "a+") as files:
             files.write(str(score) + "\n")
             print(score)
             files.close()
@@ -102,11 +104,11 @@ def minetoucher():
     global score,fenetre_credit
     messagebox.showerror(title="démineur",message=" tu as perdu \n partie termier !\n ton score est de {}".format(score))
     score = str(score)
-    with open("../pythonProject5/score.txt", "a+") as file:
+    with open(accesficher, "a+") as file:
         file.write(score + "\n")
         print(score)
         file.close()
-    window.quit()
+    window.destroy()
     return 0
 
 tabnb = [[0, 0]] * 191
@@ -219,4 +221,3 @@ for ligne in range(19):
 print(tabnb)
 
 window.mainloop()
-
