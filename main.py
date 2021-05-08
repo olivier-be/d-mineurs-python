@@ -2,7 +2,7 @@ import webbrowser
 from random import randint
 from tkinter import Tk, messagebox, BOTTOM, PanedWindow, LEFT, Frame, Label, YES, Button
 
-#donner le chemin d'accès du ficher du programe sans \main.py et il faut doubler le slash après le disque ex C:\\ et il ne faut verifer qu'il y a \d-mineurs-python-main\d-mineurs-python-main a la fin 
+#donner le chemin d'accès du ficher du programe sans \main.py et il faut doubler le slash après le disque ex C:\\ et il ne faut verifer qu'il y a \d-mineurs-python-main\d-mineurs-python-main a la fin
 accesficher="C:\\Users\olivi\Downloads\d-mineurs-python-main\d-mineurs-python-main"
 window = Tk()
 window.title("démineur")
@@ -145,19 +145,20 @@ def verification_recus(n, ligne, colonne):
         supprimer_tab(n -(20 * k))
 
 
-def verif1(i, ligne2, colonne2,m):
+def verif1(i, ligne, colonne,m):
     global tabnb,tab
     print(i,"= i ",m,"= m")
     if [ligne,colonne+1]in tab_mine or[ligne,colonne+1] in tab_mine_proche:
         i=i
-    if colonne2 <= 8:
-        colonne2 += 1
-        print("verifie colonne",colonne2)
+    elif colonne <= 8:
+        colonne += 1
+        print("verifie colonne",colonne)
         i = i +1
         print(i)
-        tab[i+(20*m)].destroy()
+        tab[i].grid_forget()
+        Label(fenetre, text="0", width=5).grid(row=ligne, column=colonne)
         m+=1
-        verif1(i, ligne2, colonne2,m)
+        verif1(i, ligne, colonne,m)
 
 
 
@@ -185,7 +186,7 @@ def suprimer(i, ligne, colonne):
     tab[i].grid_forget()
     Label(fenetre, text="0", width=5).grid(row=ligne, column=colonne)
     print(i)
-    #verification(i, ligne, colonne)
+    verification(i, ligne, colonne)
     point()
 
 tabl = tab
@@ -223,4 +224,3 @@ for ligne in range(19):
 print(tabnb)
 
 window.mainloop()
-
