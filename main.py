@@ -1,4 +1,4 @@
-import webbrowser
+ser
 from random import randint
 from tkinter import Tk, messagebox, BOTTOM, PanedWindow, LEFT, Frame, Label, YES, Button
 
@@ -70,7 +70,7 @@ with open("score.txt","r") as file:
         tab_scorela[m]=Label(score_board, text="{} score prec = {}".format(m,tab_scorer[m]), width=15).grid(row=m, column=0)
     file.close()
 
-nbmine=10
+nbmine=11
 # position mine
 tab_mine = [[0, 0]]
 for i in range(nbmine):
@@ -114,7 +114,7 @@ tabm = [0] * 191
 i = 1
 z = 1
 e = 1
-tab_mine_proche=[[0,0]]*(6*nbmine+2)
+tab_mine_proche=[[0,0]]*(8*nbmine)
 def supprimer_tab(i):
     tab[i].grid_forget()
 def verification_recus(n, ligne, colonne):
@@ -181,7 +181,7 @@ def suprimer(i, ligne, colonne):
     tab[i].grid_forget()
     Label(fenetre, text="0", width=5).grid(row=ligne, column=colonne)
     print(i)
-    verification(i, ligne, colonne)
+    #verification(i, ligne, colonne)
     point()
 
 tabl = tab
@@ -190,7 +190,7 @@ b=1
 for ligne in range(19):
     for colonne in range(10):
         for y in range (nbmine+1):
-            if ligne == tab_mine[y+1][0] and colonne == tab_mine[y+1][1]:
+            if ligne == tab_mine[y][0] and colonne == tab_mine[y][1] and y!=0:
                 tab[i] = Button(fenetre, text="mine0", command=minetoucher).grid(row=ligne, column=colonne)
                 tabl[i] = Label(fenetre, text="2", width=5)
                 tabnb[i]= [ligne,colonne]
@@ -219,3 +219,4 @@ for ligne in range(19):
 print(tabnb)
 
 window.mainloop()
+
