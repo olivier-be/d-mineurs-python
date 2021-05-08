@@ -2,8 +2,8 @@ import webbrowser
 from random import randint
 from tkinter import Tk, messagebox, BOTTOM, PanedWindow, LEFT, Frame, Label, YES, Button
 
-#donner position du ficher score.txt et il faut doubler le slash après le disque ex 
-accesficher="G:\\pythonProject5"
+#donner le chemin d'accès du ficher du programe sans \main.py et il faut doubler le slash après le disque ex C:\\ et il ne faut verifer qu'il y a \d-mineurs-python-main\d-mineurs-python-main a la fin 
+accesficher="C:\\Users\olivi\Downloads\d-mineurs-python-main\d-mineurs-python-main"
 window = Tk()
 window.title("démineur")
 window.geometry("575x493")
@@ -223,5 +223,4 @@ for ligne in range(19):
 print(tabnb)
 
 window.mainloop()
-
 
