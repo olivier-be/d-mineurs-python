@@ -119,30 +119,6 @@ i = 1
 z = 1
 e = 1
 tab_mine_proche=[[0,0]]*(8*nbmine)
-def supprimer_tab(i):
-    tab[i].grid_forget()
-def verification_recus(n, ligne, colonne):
-    print("start verification ligne:",ligne)
-    k=1
-    m=1
-    print(i," aaaaaaaaaaaaaaaaaaaaaaaaaaa")
-    ligne2=ligne
-    colonne2=colonne
-    ligne3=ligne
-    colonne3=colonne
-    while colonne != 10:
-        global tabnb
-        print(n, " aaaaaaaaaaaaaaaaaaaaaaaaaaa")
-        print("start verification colonne:",colonne)
-        colonne += 1
-        y=n+(20*m)
-        print(tabnb[y],m)
-        #supprimer_tab(i+(20*m))
-        m=m+1
-    while colonne2 !=0:
-        colonne2 -= 1
-        print(n -(20 * k))
-        supprimer_tab(n -(20 * k))
 
 
 def verif1(i, ligne, colonne,m):
@@ -164,7 +140,6 @@ def verif1(i, ligne, colonne,m):
 
 def verification(i, ligne, colonne):
     z = 0
-    global tab,tabnb
     print("start", ligne, colonne)
     print("start verification ligne:", ligne)
     k = 1
@@ -186,7 +161,7 @@ def suprimer(i, ligne, colonne):
     tab[i].grid_forget()
     Label(fenetre, text="0", width=5).grid(row=ligne, column=colonne)
     print(i)
-    verification(i, ligne, colonne)
+    #verification(i, ligne, colonne)
     point()
 
 tabl = tab
