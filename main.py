@@ -3,7 +3,7 @@ from random import randint
 from tkinter import Tk, messagebox, BOTTOM, PanedWindow, LEFT, Frame, Label, YES, Button
 
 #donner position du ficher score.txt
-accesficher=""
+accesficher="G:\pythonProject5\score.txt"
 window = Tk()
 window.title("démineur")
 window.geometry("575x493")
@@ -52,7 +52,7 @@ def acces_credit():
     fenetre_credit.mainloop()
 button_credit = Button(left_window, text="credit", command=acces_credit, width=15).grid(row=12,column=0)
 button_menu = Button(left_window, text="menu", width=15).grid(row=17,column=0)
-with open("score.txt","r") as file:
+with open(accesficher,"r") as file:
     tab_score= file.readlines()
     print(tab_score)
     tab_scorer=["a"]*(len(tab_score))
