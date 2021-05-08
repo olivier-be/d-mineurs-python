@@ -3,7 +3,7 @@ from random import randint
 from tkinter import Tk, messagebox, BOTTOM, PanedWindow, LEFT, Frame, Label, YES, Button
 
 #donner position du ficher score.txt
-accesficher="G:\pythonProject5\score.txt"
+accesficher="G:\pythonProject5"
 window = Tk()
 window.title("démineur")
 window.geometry("575x493")
@@ -14,7 +14,7 @@ window.config(background='#FFFFFF')
 fenetre = PanedWindow(window)
 fenetre.pack(side=LEFT)
 fenetre.config(background='#FFFFFF')
-window.iconbitmap("démineur.ico")
+window.iconbitmap(accesficher+"\démineur.ico")
 
 # fenetre score board
 left_window = PanedWindow(window, borderwidth=4,relief='groove')
@@ -24,6 +24,7 @@ left_window.config(background='#FFFFFF',width=20)
 score_board =PanedWindow(window, borderwidth=4,relief='groove')
 score_board.pack()
 score_board.config(background='#FFFFFF',width=20)
+
 
 # sous fentre 1
 def acces_credit():
@@ -50,6 +51,8 @@ def acces_credit():
     quit_buttion.pack(side=BOTTOM, pady=50)
     frame.pack()
     fenetre_credit.mainloop()
+accesficher+="\score.txt"
+print(accesficher)
 button_credit = Button(left_window, text="credit", command=acces_credit, width=15).grid(row=12,column=0)
 button_menu = Button(left_window, text="menu", width=15).grid(row=17,column=0)
 with open(accesficher,"r") as file:
@@ -97,7 +100,6 @@ def point():
             files.close()
         window.quit()
     return score
-
 
 def minetoucher():
     print("vous avez perdu")
@@ -221,3 +223,5 @@ for ligne in range(19):
 print(tabnb)
 
 window.mainloop()
+
+
