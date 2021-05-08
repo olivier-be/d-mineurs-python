@@ -2,8 +2,8 @@ import webbrowser
 from random import randint
 from tkinter import Tk, messagebox, BOTTOM, PanedWindow, LEFT, Frame, Label, YES, Button
 
-#donner position du ficher score.txt
-accesficher="G:\pythonProject5"
+#donner position du ficher score.txt et il faut doubler le slash après le disque ex 
+accesficher="G:\\pythonProject5"
 window = Tk()
 window.title("démineur")
 window.geometry("575x493")
