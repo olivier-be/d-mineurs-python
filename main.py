@@ -2,7 +2,8 @@ import webbrowser
 from random import randint
 from tkinter import Tk, messagebox, BOTTOM, PanedWindow, LEFT, Frame, Label, YES, Button
 
-#donner le chemin d'accès du ficher du programe sans \main.py et il faut doubler le slash après le disque ex C:\\ et il ne faut verifer qu'il y a \d-mineurs-python-main\d-mineurs-python-main a la fin
+#donner le chemin d'accès du ficher du programe sans \main.py et il faut doubler le slash après le disque ex C:\\ et
+# il faut verifer qu'il y a \d-mineurs-python-main\d-mineurs-python-main a la fin
 accesficher="C:\\Users\olivi\Downloads\d-mineurs-python-main\d-mineurs-python-main"
 window = Tk()
 window.title("démineur")
@@ -121,9 +122,10 @@ e = 1
 tab_mine_proche=[[0,0]]*(8*nbmine)
 
 
-def verif1(i, ligne, colonne,m):
+def verif1(i, ligne, colonne,m, z,t,e,x,v):
     global tabnb,tab
     print(i,"= i ",m,"= m")
+    print(colonne,"colonne",z,"colonne-")
     if [ligne,colonne+1]in tab_mine or[ligne,colonne+1] in tab_mine_proche:
         i=i
     elif colonne <= 8:
@@ -134,18 +136,35 @@ def verif1(i, ligne, colonne,m):
         tab[i].grid_forget()
         Label(fenetre, text="0", width=5).grid(row=ligne, column=colonne)
         m+=1
-        verif1(i, ligne, colonne,m)
+        point()
+        verif1(i, ligne, colonne,m, z,t,e,x,v)
 
+    if [ligne,z-1]in tab_mine or[ligne,z-1] in tab_mine_proche:
+        i=i
+    elif z >= 1:
+        print(z,"start")
+        z -= 1
+        print("verifie colonne", z)
+        x = x - 1
+        print(x)
+        tab[x].grid_forget()
+        Label(fenetre, text="0", width=5).grid(row=ligne, column=z)
+        m += 1
+        verif1(i, ligne, colonne, m, z, t, e, x,v)
 
 
 def verification(i, ligne, colonne):
-    z = 0
     print("start", ligne, colonne)
     print("start verification ligne:", ligne)
-    k = 1
-    m = 1
-    print(i, " aaaaaaaaaaaaaaaaaaaaaaaaaaa")
-    verif1(i, ligne, colonne,m)
+    m = 0
+    z=colonne
+    t=colonne
+    e=i
+    x=i
+    v=[0]*2
+    print(x)
+    print(i, " numéro case")
+    verif1(i, ligne, colonne,m, z,t,e,x,v)
 
 
 
@@ -159,7 +178,7 @@ def change_nom_proche(i, ligne, colonne):
         colonne == tab_mine[t + 1][1] - 1
         or colonne == tab_mine[t + 1][1] + 1 or colonne == tab_mine[t + 1][1])):
             m+=1
-        
+
     Label(fenetre, text=str(m), width=5).grid(row=ligne, column=colonne)
     point()
 
@@ -170,7 +189,7 @@ def suprimer(i, ligne, colonne):
     tab[i].grid_forget()
     Label(fenetre, text="0", width=5).grid(row=ligne, column=colonne)
     print(i)
-    #verification(i, ligne, colonne)
+    verification(i, ligne, colonne)
     point()
 
 tabl = tab
