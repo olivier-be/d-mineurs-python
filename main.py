@@ -128,7 +128,7 @@ def verif1(i, ligne, colonne,m, z,t,e,x,v):
     global tabnb,tab
     print(i,"= i ",x,"= x",m,"= m")
     print(colonne,"colonne",z,"colonne-")
-    if [ligne,colonne+1]in tab_mine:# or[ligne,colonne+1] in tab_mine_proche:
+    if [ligne,colonne+1]in tab_mine or[ligne,colonne+1] in tab_mine_proche:
         i=i
     elif colonne <= 8:
         colonne += 1
@@ -145,7 +145,7 @@ def verif2(i, ligne, colonne,m, z,t,e,x,v):
     global tabnb, tab
     print(i, "= i ", x, "= x", m, "= m")
     print(colonne, "colonne", z, "colonne-")
-    if [ligne,z-1]in tab_mine:# or[ligne,z-1] in tab_mine_proche or z<1:
+    if [ligne,z-1]in tab_mine or[ligne,z-1] in tab_mine_proche or z<1:
         i=i
     elif z >= 1:
         z -= 1
