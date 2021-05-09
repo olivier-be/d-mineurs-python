@@ -76,9 +76,9 @@ with open(accesficher,"r") as file:
         tab_scorela[m]=Label(score_board, text="{} score prec = {}".format(m,tab_scorer[m]), width=15).grid(row=m, column=0)
     file.close()
 
-nbmine=11
+nbmine=10
 # position mine
-tab_mine = [[0, 0]]
+tab_mine = [[randint(0, 18), randint(0, 9)]]
 for i in range(nbmine):
     tab_mine.append([randint(0, 18), randint(0, 9)])
 print(tab_mine)
@@ -93,7 +93,7 @@ def point():
     print(str(score))
     scoree=str(score)
     scorec = Label(left_window, text=scoree, width=15).grid(row=0, column=0)
-    if score>190-nbmine+3:
+    if score>200-nbmine:
         messagebox.showerror(title="démineur",message=" tu as gagner \n partie termier !\n ton score est de {}".format(score))
         with open(accesficher, "a+") as files:
             files.write(str(score) + "\n")
@@ -120,13 +120,15 @@ i = 1
 z = 1
 e = 1
 tab_mine_proche=[[0,0]]*(8*nbmine)
-
+def pointmarquer(m):
+    for i in range(m+1):
+        point()
 
 def verif1(i, ligne, colonne,m, z,t,e,x,v):
     global tabnb,tab
-    print(i,"= i ",m,"= m")
+    print(i,"= i ",x,"= x",m,"= m")
     print(colonne,"colonne",z,"colonne-")
-    if [ligne,colonne+1]in tab_mine or[ligne,colonne+1] in tab_mine_proche:
+    if [ligne,colonne+1]in tab_mine:# or[ligne,colonne+1] in tab_mine_proche:
         i=i
     elif colonne <= 8:
         colonne += 1
@@ -136,21 +138,29 @@ def verif1(i, ligne, colonne,m, z,t,e,x,v):
         tab[i].grid_forget()
         Label(fenetre, text="0", width=5).grid(row=ligne, column=colonne)
         m+=1
+        print(m)
         point()
         verif1(i, ligne, colonne,m, z,t,e,x,v)
-
-    if [ligne,z-1]in tab_mine or[ligne,z-1] in tab_mine_proche:
+def verif2(i, ligne, colonne,m, z,t,e,x,v):
+    global tabnb, tab
+    print(i, "= i ", x, "= x", m, "= m")
+    print(colonne, "colonne", z, "colonne-")
+    if [ligne,z-1]in tab_mine:# or[ligne,z-1] in tab_mine_proche or z<1:
         i=i
     elif z >= 1:
-        print(z,"start")
         z -= 1
+        print(z,"start")
         print("verifie colonne", z)
         x = x - 1
         print(x)
         tab[x].grid_forget()
         Label(fenetre, text="0", width=5).grid(row=ligne, column=z)
         m += 1
-        verif1(i, ligne, colonne, m, z, t, e, x,v)
+        print(m)
+        point()
+        verif2(i, ligne, colonne, m, z, t, e, x,v)
+
+
 
 
 def verification(i, ligne, colonne):
@@ -165,6 +175,7 @@ def verification(i, ligne, colonne):
     print(x)
     print(i, " numéro case")
     verif1(i, ligne, colonne,m, z,t,e,x,v)
+    verif2(i, ligne, colonne, m, z, t, e, x, v)
 
 
 
@@ -209,7 +220,7 @@ for ligne in range(19):
                 if ((ligne == tab_mine[t + 1][0] - 1 or ligne == tab_mine[t + 1][0] + 1 or ligne == tab_mine[t + 1][0])
                 and (colonne == tab_mine[t + 1][1] - 1 or colonne == tab_mine[t + 1][1] + 1)) or \
                 ((ligne == tab_mine[t + 1][0] - 1 or ligne == tab_mine[t + 1][0] + 1) and (colonne == tab_mine[t + 1][1] - 1
-                or colonne == tab_mine[t + 1][1] + 1 or colonne ==tab_mine[t + 1][1])):
+                or colonne == tab_mine[t + 1][1] + 1 or colonne ==tab_mine[t + 1][1])) :
                     tab[i] = Button(fenetre, text="mine?", bg='#DC1010', width=5,
                     command=lambda i=i, ligne=ligne, colonne=colonne: change_nom_proche(i, ligne,colonne)and print(i)).grid(row=ligne, column=colonne)
                     tabl[i] = Label(fenetre, text="1", width=5)
