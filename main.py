@@ -36,7 +36,7 @@ def acces_credit():
 
     fenetre_credit = Tk()
     fenetre_credit.title("démineur")
-    window.iconbitmap("démineur.ico")
+    #window.iconbitmap(accesficher+"\démineur.ico")
     fenetre_credit.geometry("1080x720")
     fenetre_credit.minsize(1080, 720)
     fenetre_credit.config(background='#FFFFFF')
@@ -48,7 +48,7 @@ def acces_credit():
     gt_buttion = Button(frame, text="ouvrir github", font=("Courrier", 20), bg='#FFFFFF', command=open_github)
     gt_buttion.pack(side=BOTTOM, pady=100)
     quit_buttion = Button(frame, text="quitter crédit", font=("Courrier", 20), bg='#FFFFFF', command=fermer_fenetre)
-    quit_buttion.pack(side=BOTTOM, pady=50)
+    #quit_buttion.pack(side=BOTTOM, pady=50)
     frame.pack()
     fenetre_credit.mainloop()
 accesficher+="\score.txt"
@@ -151,7 +151,16 @@ def verification(i, ligne, colonne):
 
 def change_nom_proche(i, ligne, colonne):
     tab[i].grid_forget()
-    Label(fenetre, text="1", width=5).grid(row=ligne, column=colonne)
+    m=0
+    for t in range(nbmine):
+        if ((ligne == tab_mine[t + 1][0] - 1 or ligne == tab_mine[t + 1][0] + 1 or ligne == tab_mine[t + 1][0])
+        and (colonne == tab_mine[t + 1][1] - 1 or colonne == tab_mine[t + 1][1] + 1)) or \
+        ((ligne == tab_mine[t + 1][0] - 1 or ligne == tab_mine[t + 1][0] + 1) and (
+        colonne == tab_mine[t + 1][1] - 1
+        or colonne == tab_mine[t + 1][1] + 1 or colonne == tab_mine[t + 1][1])):
+            m+=1
+        
+    Label(fenetre, text=str(m), width=5).grid(row=ligne, column=colonne)
     point()
 
 
@@ -178,10 +187,12 @@ for ligne in range(19):
                 print("a", i)
         if test == 0:
             for t in range(nbmine):
-                if ((ligne == tab_mine[t + 1][0] - 1 or ligne == tab_mine[t + 1][0] + 1 or ligne == tab_mine[t + 1][0]) and (colonne == tab_mine[t + 1][1] - 1 or colonne == tab_mine[t + 1][1] + 1)) or ((ligne == tab_mine[t + 1][0] - 1 or ligne == tab_mine[t + 1][0] + 1) and (colonne == tab_mine[t + 1][1] - 1 or colonne == tab_mine[t + 1][1] + 1 or colonne ==
-                        tab_mine[t + 1][1])):
+                if ((ligne == tab_mine[t + 1][0] - 1 or ligne == tab_mine[t + 1][0] + 1 or ligne == tab_mine[t + 1][0])
+                and (colonne == tab_mine[t + 1][1] - 1 or colonne == tab_mine[t + 1][1] + 1)) or \
+                ((ligne == tab_mine[t + 1][0] - 1 or ligne == tab_mine[t + 1][0] + 1) and (colonne == tab_mine[t + 1][1] - 1
+                or colonne == tab_mine[t + 1][1] + 1 or colonne ==tab_mine[t + 1][1])):
                     tab[i] = Button(fenetre, text="mine?", bg='#DC1010', width=5,
-                                    command=lambda i=i, ligne=ligne, colonne=colonne: change_nom_proche(i, ligne,colonne)and print(i)).grid(row=ligne, column=colonne)
+                    command=lambda i=i, ligne=ligne, colonne=colonne: change_nom_proche(i, ligne,colonne)and print(i)).grid(row=ligne, column=colonne)
                     tabl[i] = Label(fenetre, text="1", width=5)
                     tab_mine_proche[b]=[ligne,colonne]
                     tabnb[i] = [ligne, colonne]
@@ -190,7 +201,7 @@ for ligne in range(19):
                     print("2", i)
         if test < 1:
             tab[i] = Button(fenetre, text="mine?", width=5,
-                            command=lambda i=i, ligne=ligne, colonne=colonne: suprimer(i, ligne, colonne) and print(i)).grid(row=ligne, column=colonne)
+            command=lambda i=i, ligne=ligne, colonne=colonne: suprimer(i, ligne, colonne) and print(i)).grid(row=ligne, column=colonne)
             tabl[i] = Label(fenetre, text="0", width=5)
             tabnb[i] = [ligne, colonne]
             print(i)
