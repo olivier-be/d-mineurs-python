@@ -130,8 +130,8 @@ def verif3(i, ligne, colonne,m, z,t,e,x,v,o,y):
     print(i, "= i ", x, "= x", m, "= m")
     v=1
     print(colonne, "colonne", z, "colonne-")
-    if [ligne +1, colonne] in tab_mine or [ligne+1, colonne ] in tab_mine_proche and and [ligne,colonne] in o:
-        i = i
+    if [ligne +1, colonne] in tab_mine or [ligne+1, colonne ] in tab_mine_proche and [ligne,colonne] in o:
+        i=i
     elif ligne <= 20:
         ligne += 1
         print("verifie colonne", ligne)
@@ -230,10 +230,10 @@ def verification(i, ligne, colonne):
     y=0
     o[i] = [ligne, colonne]
     print(i, " numéro case")
-    verif1(i, ligne, colonne,m, z,t,e,x,v,o,y,n)
-    verif2(i, ligne, colonne, m, z, t, e, x,v,o,y,n)
-    verif3(i, ligne, colonne, m, z, t, e, x,v,o,y,n)
-    verif4(i, ligne, colonne, m, z, t, e, x, v, o,y,n)
+    verif1(i, ligne, colonne,m, z,t,e,x,v,o,y)
+    verif2(i, ligne, colonne, m, z, t, e, x,v,o,y)
+    verif3(i, ligne, colonne, m, z, t, e, x,v,o,y)
+    verif4(i, ligne, colonne, m, z, t, e, x, v, o,y)
 
 
 
