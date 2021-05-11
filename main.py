@@ -76,6 +76,7 @@ with open(accesficher,"r") as file:
         tab_scorela[m]=Label(score_board, text="{} score prec = {}".format(m,tab_scorer[m]), width=15).grid(row=m, column=0)
     file.close()
 
+m=0
 nbmine=10
 # position mine
 tab_mine = [[randint(0, 18), randint(0, 9)]]
@@ -124,11 +125,53 @@ def pointmarquer(m):
     for i in range(m+1):
         point()
 
-def verif1(i, ligne, colonne,m, z,t,e,x,v):
+def verif3(i, ligne, colonne,m, z,t,e,x,v,o,y):
+    global tabnb, tab
+    print(i, "= i ", x, "= x", m, "= m")
+    v=1
+    print(colonne, "colonne", z, "colonne-")
+    if [ligne +1, colonne] in tab_mine or [ligne+1, colonne ] in tab_mine_proche and and [ligne,colonne] in o:
+        i = i
+    elif ligne <= 20:
+        ligne += 1
+        print("verifie colonne", ligne)
+        i = i + 1
+        print(i)
+        tab[i].grid_forget()
+        Label(fenetre, text="0", width=5).grid(row=ligne, column=colonne)
+        m += 1
+        print(m)
+        pointmarquer(y)
+        verif1(i, ligne, colonne, m, z, t, e, x,v,o,y)
+        verif2(i, ligne, colonne, m, z, t, e, x,v,o,y)
+        verif3(i, ligne, colonne, m, z, t, e, x,v,o,y)
+
+def verif4(i, ligne, colonne,m, z,t,e,x,v,o,y):
+    global tabnb, tab
+    print(i, "= i ", x, "= x", m, "= m")
+    print(colonne, "colonne", z, "colonne-")
+    v=0
+    if [ligne -1, colonne] in tab_mine or [ligne-1, colonne ] in tab_mine_proche and ligne>0 and [ligne,colonne] in o:
+        i = i
+    elif ligne <= 20:
+        ligne -= 1
+        print("verifie colonne", ligne)
+        i = i - 1
+        print(i)
+        tab[i].grid_forget()
+        Label(fenetre, text="0", width=5).grid(row=ligne, column=colonne)
+        m += 1
+        print(m)
+        pointmarquer(m)
+        verif1(i, ligne, colonne, m, z, t, e, x,v,o,y)
+        verif2(i, ligne, colonne, m, z, t, e, x,v,o,y)
+        verif4(i, ligne, colonne, m, z, t, e, x,v,o,y)
+
+def verif1(i, ligne, colonne,m, z,t,e,x,v,o,y):
     global tabnb,tab
     print(i,"= i ",x,"= x",m,"= m")
     print(colonne,"colonne",z,"colonne-")
-    if [ligne,colonne+1]in tab_mine or[ligne,colonne+1] in tab_mine_proche:
+    if [ligne,colonne+1]in tab_mine or[ligne,colonne+1] in tab_mine_proche or colonne<1 and [ligne,colonne] in o:
         i=i
     elif colonne <= 8:
         colonne += 1
@@ -137,15 +180,20 @@ def verif1(i, ligne, colonne,m, z,t,e,x,v):
         print(i)
         tab[i].grid_forget()
         Label(fenetre, text="0", width=5).grid(row=ligne, column=colonne)
-        m+=1
-        print(m)
+        o[i] = [ligne, colonne]
         point()
-        verif1(i, ligne, colonne,m, z,t,e,x,v)
-def verif2(i, ligne, colonne,m, z,t,e,x,v):
+        if v==0:
+            m+=1
+            print(m)
+        else:
+            y+=1
+            print(y)
+        verif1(i, ligne, colonne,m, z,t,e,x,v,o,y)
+def verif2(i, ligne, colonne,m, z,t,e,x,v,o,y):
     global tabnb, tab
     print(i, "= i ", x, "= x", m, "= m")
     print(colonne, "colonne", z, "colonne-")
-    if [ligne,z-1]in tab_mine or[ligne,z-1] in tab_mine_proche or z<1:
+    if [ligne,z-1]in tab_mine or[ligne,z-1] in tab_mine_proche or z<1 and [ligne,z] in o:
         i=i
     elif z >= 1:
         z -= 1
@@ -155,10 +203,14 @@ def verif2(i, ligne, colonne,m, z,t,e,x,v):
         print(x)
         tab[x].grid_forget()
         Label(fenetre, text="0", width=5).grid(row=ligne, column=z)
-        m += 1
-        print(m)
-        point()
-        verif2(i, ligne, colonne, m, z, t, e, x,v)
+        o[i]=[ligne,z]
+        if v==0:
+            m+=1
+            print(m)
+        else:
+            y+=1
+            print(y)
+        verif2(i, ligne, colonne, m, z, t, e, x,v,o,y)
 
 
 
@@ -171,11 +223,17 @@ def verification(i, ligne, colonne):
     t=colonne
     e=i
     x=i
+    n=[0,0]*200
     v=[0]*2
     print(x)
+    o=[0,0]*200
+    y=0
+    o[i] = [ligne, colonne]
     print(i, " numéro case")
-    verif1(i, ligne, colonne,m, z,t,e,x,v)
-    verif2(i, ligne, colonne, m, z, t, e, x, v)
+    verif1(i, ligne, colonne,m, z,t,e,x,v,o,y,n)
+    verif2(i, ligne, colonne, m, z, t, e, x,v,o,y,n)
+    verif3(i, ligne, colonne, m, z, t, e, x,v,o,y,n)
+    verif4(i, ligne, colonne, m, z, t, e, x, v, o,y,n)
 
 
 
