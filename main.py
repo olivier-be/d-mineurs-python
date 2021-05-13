@@ -141,7 +141,7 @@ def verif3(i, ligne, colonne, m, z, t, e, x, n, o, y):
         print(i)
         tab[i].grid_forget()
         Label(fenetre, text="0", width=5).grid(row=ligne, column=colonne)
-        m[i] = 10
+        m[i] = 1
         pointmarquer(m, n)
         print(m)
         verif1(i, ligne, colonne, m, z, t, e, x, n, o, y)
@@ -150,18 +150,18 @@ def verif3(i, ligne, colonne, m, z, t, e, x, n, o, y):
 
 def verif4(i, ligne, colonne, m, z, t, e, x, n, o, y):
     global tabnb, tab
-    print(i, "= i ", x, "= x", m, "= m")
+    print(t, "= t ", x, "= x", m, "= m")
     print(colonne, "colonne", z, "colonne-")
     if [ligne -1, colonne] in tab_mine or [ligne-1, colonne ] in tab_mine_proche and ligne>0 and [ligne,colonne] in o:
-        i = i
+        t = t
     elif ligne >= 1:
         ligne -= 1
         print("verifie colonne", ligne)
-        i = i - 10
-        print(i)
-        tab[i].grid_forget()
+        t = t - 10
+        print(t)
+        tab[t].grid_forget()
         Label(fenetre, text="0", width=5).grid(row=ligne, column=colonne)
-        m[i] = 1
+        m[t] = 1
         print(m)
         pointmarquer(m, n)
         verif1(i, ligne, colonne, m, z, t, e, x, n, o, y)
@@ -209,7 +209,7 @@ def verification(i, ligne, colonne):
     print("start verification ligne:", ligne)
     m = [0]*200
     z=colonne
-    t=ligne
+    t=i
     e=i
     x=i
     print(x)
