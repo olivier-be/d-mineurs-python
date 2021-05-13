@@ -129,6 +129,7 @@ def pointmarquer(m, n):
             n[e]= "1"
     return n
 def verif3(i, ligne, colonne, m, z, t, e, x, n, o, y):
+    global tabnb, tab
     print(i, "= i ", x, "= x", m, "= m")
     print(colonne, "colonne", z, "colonne-")
     if [ligne +1, colonne] in tab_mine or [ligne+1, colonne ] in tab_mine_proche and [ligne,colonne] in o:
@@ -148,6 +149,7 @@ def verif3(i, ligne, colonne, m, z, t, e, x, n, o, y):
         verif3(i, ligne, colonne, m, z, t, e, x, n, o, y)
 
 def verif4(i, ligne, colonne, m, z, t, e, x, n, o, y):
+    global tabnb, tab
     print(i, "= i ", x, "= x", m, "= m")
     print(colonne, "colonne", z, "colonne-")
     if [ligne -1, colonne] in tab_mine or [ligne-1, colonne ] in tab_mine_proche and ligne>0 and [ligne,colonne] in o:
@@ -167,6 +169,7 @@ def verif4(i, ligne, colonne, m, z, t, e, x, n, o, y):
         verif4(i, ligne, colonne, m, z, t, e, x, n, o, y)
 
 def verif1(i, ligne, colonne, m, z, t, e, x, n, o, y):
+    global tabnb,tab
     print(i,"= i ",x,"= x",m,"= m")
     print(colonne,"colonne",z,"colonne-")
     if [ligne,colonne+1]in tab_mine or[ligne,colonne+1] in tab_mine_proche or colonne<1 and [ligne,colonne] in o:
@@ -183,6 +186,7 @@ def verif1(i, ligne, colonne, m, z, t, e, x, n, o, y):
         pointmarquer(m, n)
         verif1(i, ligne, colonne, m, z, t, e, x, n, o, y)
 def verif2(i, ligne, colonne, m, z, t, e, x, n, o, y):
+    global tabnb, tab
     print(i, "= i ", x, "= x", m, "= m")
     print(colonne, "colonne", z, "colonne-")
     if [ligne,z-1]in tab_mine or[ligne,z-1] in tab_mine_proche or z<1 and [ligne,z] in o:
