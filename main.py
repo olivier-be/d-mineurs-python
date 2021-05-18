@@ -1,14 +1,47 @@
 import webbrowser
 from random import randint
 from tkinter import Tk, messagebox, BOTTOM, PanedWindow, LEFT, Frame, Label, YES, Button
+from time import sleep
 
 #donner le chemin d'accès du ficher du programe sans \main.py et il faut doubler le slash après le disque ex C:\\ et après user \\ et
 # il faut verifer qu'il y a \d-mineurs-python-main\d-mineurs-python-main a la fin
 accesficher="C:\\Users\olivi\Downloads\d-mineurs-python-main\d-mineurs-python-main"
+nbligne = 19
+nbcolonne = 10
+nbmine = 10
+taille=0
+def niveau_debutant():
+    global nbcolonne,nbligne,nbmine,tab
+    print("bc")
+
+    window.withdraw()
+    nbligne=15
+    nbcolonne = 10
+    nbmine = 10
+
+    #window.minsize(575, 490)
+    #window.geometry("575x490")
+    window.deiconify ()
+def niveau_intermerdiare():
+    global nbcolonne, nbligne, nbmine
+    window.destroy()
+    nbligne = 25
+    nbcolonne = 15
+    nbmine = 20
+    window.mainloop()
+
+def niveau_imposible():
+    global nbcolonne, nbligne, nbmine
+    nbligne = 19
+    nbcolonne = 10
+    nbmine = 30
+    window.mainloop()
+
 window = Tk()
 window.title("démineur")
-window.geometry("575x493")
-window.minsize(575, 493)
+if taille==0:
+    window.geometry("575x493")
+    window.minsize(575, 493)
 window.config(background='#FFFFFF')
 
 # fenetre démineur
@@ -72,8 +105,8 @@ with open(accesficher,"r") as file:
     tab_scorela=[Button]*len(tab_scorer)
     for m in range(nb_ligne):
         print("a")
-        print(tab_scorer[m])
-        tab_scorela[m]=Label(score_board, text="{} score prec = {}".format(m,tab_scorer[m]), width=15).grid(row=m, column=0)
+        print(tab_scorer[m+5])
+        tab_scorela[m]=Label(score_board, text="{} score prec = {}".format(m+1,tab_scorer[m]), width=15).grid(row=m, column=0)
     file.close()
 
 m=0
@@ -218,6 +251,9 @@ def verifrec(i, ligne, colonne,i2,ligne3,colonne3, m, n, o,tabv):
             i = tabv[z+1][2]
             ligne= tabv[z+1][1]
             colonne=tabv[z+1][0]
+            ligne3=ligne
+            colonne3=colonne
+            i2 = i
             for ligne2 in range(-1, 1):
                 for colonne2 in range(-1, 1):
                     if colonne2 == 0 and ligne2 == 1:
@@ -287,8 +323,9 @@ def suprimer(i, ligne, colonne):
 tabl = tab
 test = 0
 b=1
-for ligne in range(19):
-    for colonne in range(10):
+
+for ligne in range(nbligne):
+    for colonne in range(nbcolonne):
         for y in range (nbmine+1):
             if ligne == tab_mine[y][0] and colonne == tab_mine[y][1] and y!=0:
                 tab[i] = Button(fenetre, text="mine0", command=minetoucher).grid(row=ligne, column=colonne)
