@@ -2,7 +2,7 @@ import webbrowser
 from random import randint
 from tkinter import Tk, messagebox, BOTTOM, PanedWindow, LEFT, Frame, Label, YES, Button
 
-#donner le chemin d'accès du ficher du programe sans \main.py et il faut doubler le slash après le disque ex C:\\ et
+#donner le chemin d'accès du ficher du programe sans \main.py et il faut doubler le slash après le disque ex C:\\ et après user \\ et
 # il faut verifer qu'il y a \d-mineurs-python-main\d-mineurs-python-main a la fin
 accesficher="C:\\Users\olivi\Downloads\d-mineurs-python-main\d-mineurs-python-main"
 window = Tk()
@@ -128,101 +128,137 @@ def pointmarquer(m, n):
             point()
             n[e]= "1"
     return n
-def verif3(i, ligne, colonne, m, z, t, e, x, n, o, y):
+
+
+def verifrec(i, ligne, colonne,i2,ligne3,colonne3, m, n, o,tabv):
     global tabnb, tab
-    print(i, "= i ", x, "= x", m, "= m")
-    print(colonne, "colonne", z, "colonne-")
-    if [ligne +1, colonne] in tab_mine or [ligne+1, colonne ] in tab_mine_proche and [ligne,colonne] in o:
-        i=i
-    elif ligne <= 20:
+    casevalide = 0
+    print(i, "= i ")
+    print(colonne, "colonne")
+    if [ligne + 1, colonne] in tab_mine or [ligne + 1, colonne] in tab_mine_proche and [ligne + 1,
+                                                                                       colonne] in o and ligne >= 1:
+        print("error")
+        tabv[1] = [201,0,0]
+    elif ligne <= 18:
         ligne += 1
         print("verifie colonne", ligne)
-        i = i + 1
+        i = i + 10
         print(i)
         tab[i].grid_forget()
         Label(fenetre, text="0", width=5).grid(row=ligne, column=colonne)
         m[i] = 1
+        tabv[1] = [ligne, colonne, i]
         pointmarquer(m, n)
         print(m)
-        verif1(i, ligne, colonne, m, z, t, e, x, n, o, y)
-        verif2(i, ligne, colonne, m, z, t, e, x, n, o, y)
-        verif3(i, ligne, colonne, m, z, t, e, x, n, o, y)
-
-def verif4(i, ligne, colonne, m, z, t, e, x, n, o, y):
-    global tabnb, tab
-    print(t, "= t ", x, "= x", m, "= m")
-    print(colonne, "colonne", z, "colonne-")
-    if [ligne -1, colonne] in tab_mine or [ligne-1, colonne ] in tab_mine_proche and ligne>0 and [ligne,colonne] in o:
-        t = t
+        casevalide=1
+    ligne=ligne3
+    colonne=colonne3
+    i=i2
+    if [ligne - 1, colonne] in tab_mine or [ligne - 1, colonne] in tab_mine_proche and [ligne - 1,
+                                                                                        colonne] in o and ligne <= 19:
+        print("error")
+        tabv[2] = [201,0,0]
     elif ligne >= 1:
         ligne -= 1
         print("verifie colonne", ligne)
-        t = t - 10
-        print(t)
-        tab[t].grid_forget()
+        i = i - 10
+        print(i)
+        tab[i].grid_forget()
         Label(fenetre, text="0", width=5).grid(row=ligne, column=colonne)
-        m[t] = 1
+        m[i] = 1
         print(m)
+        tabv[2] = [ligne, colonne, i]
         pointmarquer(m, n)
-        verif1(i, ligne, colonne, m, z, t, e, x, n, o, y)
-        verif2(i, ligne, colonne, m, z, t, e, x, n, o, y)
-        verif4(i, ligne, colonne, m, z, t, e, x, n, o, y)
+        casevalide = 1
 
-def verif1(i, ligne, colonne, m, z, t, e, x, n, o, y):
-    global tabnb,tab
-    print(i,"= i ",x,"= x",m,"= m")
-    print(colonne,"colonne",z,"colonne-")
-    if [ligne,colonne+1]in tab_mine or[ligne,colonne+1] in tab_mine_proche or colonne<1 and [ligne,colonne] in o:
-        i=i
+    ligne=ligne3
+    colonne=colonne3
+    i=i2
+    if [ligne, colonne + 1] in tab_mine or [ligne, colonne + 1] in tab_mine_proche or colonne < 1 and [ligne,
+                                                                                                       colonne + 1] in o and colonne >= 1:
+        print("error")
+        tabv[3] = [201,0,0]
     elif colonne <= 8:
         colonne += 1
-        print("verifie colonne",colonne)
-        i = i +1
+        print("verifie colonne", colonne)
+        i = i + 1
         print(i)
         tab[i].grid_forget()
         Label(fenetre, text="0", width=5).grid(row=ligne, column=colonne)
         o[i] = [ligne, colonne]
         m[i] = 1
+        tabv[3]=[ligne,colonne,i]
         pointmarquer(m, n)
-        verif1(i, ligne, colonne, m, z, t, e, x, n, o, y)
-def verif2(i, ligne, colonne, m, z, t, e, x, n, o, y):
-    global tabnb, tab
-    print(i, "= i ", x, "= x", m, "= m")
-    print(colonne, "colonne", z, "colonne-")
-    if [ligne,z-1]in tab_mine or[ligne,z-1] in tab_mine_proche or z<1 and [ligne,z] in o:
-        i=i
-    elif z >= 1:
-        z -= 1
-        print(z,"start")
-        print("verifie colonne", z)
-        x = x - 1
-        print(x)
-        tab[x].grid_forget()
-        Label(fenetre, text="0", width=5).grid(row=ligne, column=z)
-        o[x]=[ligne,z]
-        m[x] = 1
+        casevalide = 1
+    ligne=ligne3
+    colonne=colonne3
+    i=i2
+
+    if [ligne, colonne - 1] in tab_mine or [ligne, colonne - 1] in tab_mine_proche or colonne < 1 and [ligne,
+                                                                                                       colonne - 1] in o and colonne <= 8:
+        print("error")
+        tabv[4] = [201, 0, 0]
+    elif colonne >= 1:
+        colonne -= 1
+        print(colonne, "start")
+        print("verifie colonne", colonne)
+        i = i - 1
+        print(i)
+        tab[i].grid_forget()
+        print("rouge")
+        Label(fenetre, text="0", width=5,bg='#DC1010').grid(row=ligne, column=colonne)
+        o[i] = [ligne, colonne]
+        m[i] = 1
+        tabv[4] = [ligne, colonne, i]
         pointmarquer(m, n)
-        verif2(i, ligne, colonne, m, z, t, e, x, n, o, y)
+        casevalide = 1
+    if casevalide==1:
+        for z in range(4):
+            print(tabv,"a")
+            i = tabv[z+1][2]
+            ligne= tabv[z+1][1]
+            colonne=tabv[z+1][0]
+            for ligne2 in range(-1, 1):
+                for colonne2 in range(-1, 1):
+                    if colonne2 == 0 and ligne2 == 1:
+                        i += 10
+                        ligne+=1
+                    elif colonne2 == 0 and ligne2 == -1:
+                        i -= 10
+                        ligne -= 1
+                    elif colonne2 == 1 and ligne2 >= 0:
+                        i += 1
+                        colonne +=1
+                    elif colonne2 == -1 and ligne2 <= 0:
+                        i += 1
+                        colonne -=1
+                    if colonne2 != 0 and ligne2 != 0:
+                        i = i
+                        print(ligne,colonne,i)
+                        verifrec(i, ligne, colonne,i2,ligne3,colonne3, m, n, o,tabv)
+
 
 def verification(i, ligne, colonne):
     print("start", ligne, colonne)
     print("start verification ligne:", ligne)
     m = [0]*200
-    z=colonne
-    t=i
-    e=i
     x=i
     print(x)
     o=[0,0]*200
-    y=0
     n=["0"]*200
     o[i] = [ligne, colonne]
     print(i, " numéro case")
     print(n)
-    verif1(i, ligne, colonne,m, z,t,e,x,n,o,y)
-    verif2(i, ligne, colonne, m, z, t, e, x,n,o,y)
-    verif3(i, ligne, colonne, m, z, t, e, x,n,o,y)
-    verif4(i, ligne, colonne, m, z, t, e, x, n, o,y)
+    i2=i
+    ligne3=ligne
+    colonne3=colonne
+    tabv=[[0,0,0]]*5
+    print(tabv,"tabverif")
+    verifrec(i, ligne, colonne,i2,ligne3,colonne3, m, n, o,tabv)
+    #verif1(i, ligne, colonne, m, n, o)
+    #verif2(i, ligne, colonne, m, n, o)
+    #verif3(i, ligne, colonne, m, n, o)
+    #verif4(i, ligne, colonne, m, n, o)
 
 def change_nom_proche(i, ligne, colonne):
     tab[i].grid_forget()
