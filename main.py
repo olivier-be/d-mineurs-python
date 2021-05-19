@@ -1,4 +1,4 @@
-import webbrowser
+
 from random import randint
 from tkinter import Tk, messagebox, BOTTOM, PanedWindow, LEFT, Frame, Label, YES, Button
 from time import sleep
@@ -162,117 +162,93 @@ def pointmarquer(m, n):
             n[e]= "1"
     return n
 
-
-def verifrec(i, ligne, colonne,i2,ligne3,colonne3, m, n, o,tabv):
+def verifec(i, ligne, colonne, i2, ligne3, colonne3, m, n, o, tabv):
     global tabnb, tab
-    casevalide = 0
+    casevide = 0
+    colonnep=0
+    colonnem=0
+    lignep = 0
+    lignem = 0
     print(i, "= i ")
     print(colonne, "colonne")
-    if [ligne + 1, colonne] in tab_mine or [ligne + 1, colonne] in tab_mine_proche and [ligne + 1,
-                                                                                       colonne] in o and ligne >= 1:
-        print("error")
-        tabv[1] = [201,0,0]
-    elif ligne <= 18:
-        ligne += 1
-        print("verifie colonne", ligne)
-        i = i + 10
-        print(i)
-        tab[i].grid_forget()
-        Label(fenetre, text="0", width=5).grid(row=ligne, column=colonne)
-        m[i] = 1
-        tabv[1] = [ligne, colonne, i]
-        pointmarquer(m, n)
-        print(m)
-        casevalide=1
-    ligne=ligne3
-    colonne=colonne3
-    i=i2
-    if [ligne - 1, colonne] in tab_mine or [ligne - 1, colonne] in tab_mine_proche and [ligne - 1,
-                                                                                        colonne] in o and ligne <= 19:
-        print("error")
-        tabv[2] = [201,0,0]
-    elif ligne >= 1:
-        ligne -= 1
-        print("verifie colonne", ligne)
-        i = i - 10
-        print(i)
-        tab[i].grid_forget()
-        Label(fenetre, text="0", width=5).grid(row=ligne, column=colonne)
-        m[i] = 1
-        print(m)
-        tabv[2] = [ligne, colonne, i]
-        pointmarquer(m, n)
-        casevalide = 1
+    for t in range(-1, 2):
+        if ([ligne, colonne + t] in tab_mine or [ligne, colonne + t] in tab_mine_proche and [ligne,
+                                                                                             colonne + t] in o and colonne + t >= 1 and colonne + t <= 9) == False and t!=0:
+            colonne += t
+            i+=t
+            print(t,"taaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+            print("verifie colonne", colonne)
+            Label(fenetre, text="0", width=5).grid(row=ligne, column=colonne)
+            m[i] = 1
+            o[i] = [ligne, colonne]
+            pointmarquer(m, n)
+            casevide = 1
 
-    ligne=ligne3
-    colonne=colonne3
-    i=i2
-    if [ligne, colonne + 1] in tab_mine or [ligne, colonne + 1] in tab_mine_proche or colonne < 1 and [ligne,
-                                                                                                       colonne + 1] in o and colonne >= 1:
-        print("error")
-        tabv[3] = [201,0,0]
-    elif colonne <= 8:
-        colonne += 1
-        print("verifie colonne", colonne)
-        i = i + 1
-        print(i)
-        tab[i].grid_forget()
-        Label(fenetre, text="0", width=5).grid(row=ligne, column=colonne)
-        o[i] = [ligne, colonne]
-        m[i] = 1
-        tabv[3]=[ligne,colonne,i]
-        pointmarquer(m, n)
-        casevalide = 1
-    ligne=ligne3
-    colonne=colonne3
-    i=i2
+            if t < 0:
+                tabv[2] = [ligne, colonne, i]
+            else:
+                tabv[1] = [ligne, colonne, i]
+            if colonne > colonne3:
+                colonnep = 1
+            elif colonne < colonne3:
+                colonnem = 1
+            ligne = ligne3
+            colonne = colonne3
+            i = i2
+    ligne = ligne3
+    colonne = colonne3
+    i = i2
+    for y in range(-1, 2):
+        if ([ligne + y, colonne] in tab_mine or [ligne+y, colonne] in tab_mine_proche and [ligne+y,
+                                                                                         colonne] in o and colonne + y >= 1 and colonne + y <= 9) == False and y!=0:
+            ligne += y
+            i+=y*10
+            print(y, "yaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+            print("verifie ligne", ligne)
+            Label(fenetre, text="0", width=5).grid(row=ligne, column=colonne)
+            m[i] = 1
+            o[i] = [ligne, colonne]
+            if y < 0:
+                tabv[4] = [ligne, colonne, i]
+            else:
+                tabv[3] = [ligne, colonne, i]
+            pointmarquer(m, n)
+            casevide = 1
+            if ligne > ligne3:
+                lignep = 1
+            elif ligne < 2:
+                lignem = 1
+            ligne = ligne3
+            colonne = colonne3
+            i = i2
 
-    if [ligne, colonne - 1] in tab_mine or [ligne, colonne - 1] in tab_mine_proche or colonne < 1 and [ligne,
-                                                                                                       colonne - 1] in o and colonne <= 8:
-        print("error")
-        tabv[4] = [201, 0, 0]
-    elif colonne >= 1:
-        colonne -= 1
-        print(colonne, "start")
-        print("verifie colonne", colonne)
-        i = i - 1
-        print(i)
-        tab[i].grid_forget()
-        print("rouge")
-        Label(fenetre, text="0", width=5,bg='#DC1010').grid(row=ligne, column=colonne)
-        o[i] = [ligne, colonne]
-        m[i] = 1
-        tabv[4] = [ligne, colonne, i]
-        pointmarquer(m, n)
-        casevalide = 1
-    if casevalide==1:
+    if casevide==1:
         for z in range(4):
-            print(tabv,"a")
-            i = tabv[z+1][2]
-            ligne= tabv[z+1][1]
-            colonne=tabv[z+1][0]
-            ligne3=ligne
-            colonne3=colonne
-            i2 = i
+            print(tabv, "a")
+            i = tabv[z + 1][2]
+            ligne = tabv[z + 1][1]
+            colonne = tabv[z + 1][0]
+            ligne3 = ligne
+            colonne3 = colonne
+
             for ligne2 in range(-1, 1):
                 for colonne2 in range(-1, 1):
-                    if colonne2 == 0 and ligne2 == 1:
-                        i += 10
-                        ligne+=1
-                    elif colonne2 == 0 and ligne2 == -1:
+                    if colonne2 == 0 and ligne2 == 1 and lignep==1:
+                        i = +10
+                        ligne += 1
+                    elif colonne2 == 0 and ligne2 == -1 and lignem==1:
                         i -= 10
                         ligne -= 1
-                    elif colonne2 == 1 and ligne2 >= 0:
+                    elif colonne2 == 1 and ligne2 >= 0 and colonnep==1:
                         i += 1
-                        colonne +=1
-                    elif colonne2 == -1 and ligne2 <= 0:
+                        colonne += 1
+                    elif colonne2 == -1 and ligne2 <= 0 and colonnem==1:
                         i += 1
-                        colonne -=1
-                    if colonne2 != 0 and ligne2 != 0:
-                        i = i
-                        print(ligne,colonne,i)
-                        verifrec(i, ligne, colonne,i2,ligne3,colonne3, m, n, o,tabv)
-
+                        colonne -= 1
+                    if colonne2 != 0 and ligne2 != 0 and ligne >= 0 and ligne <= 19 and colonne>= 1 and colonne <=9:
+                        print(ligne, colonne, i)
+                        i2 = i
+                        verifec(i, ligne, colonne, i2, ligne3, colonne3, m, n, o, tabv)
 
 def verification(i, ligne, colonne):
     print("start", ligne, colonne)
@@ -290,7 +266,7 @@ def verification(i, ligne, colonne):
     colonne3=colonne
     tabv=[[0,0,0]]*5
     print(tabv,"tabverif")
-    verifrec(i, ligne, colonne,i2,ligne3,colonne3, m, n, o,tabv)
+    verifec(i, ligne, colonne, i2, ligne3, colonne3, m, n, o, tabv)
     #verif1(i, ligne, colonne, m, n, o)
     #verif2(i, ligne, colonne, m, n, o)
     #verif3(i, ligne, colonne, m, n, o)
