@@ -1,4 +1,5 @@
 
+import webbrowser
 from random import randint
 from tkinter import Tk, messagebox, BOTTOM, PanedWindow, LEFT, Frame, Label, YES, Button
 from time import sleep
@@ -175,8 +176,8 @@ def verifec(i, ligne, colonne, i2, ligne3, colonne3, m, n, o, tabv):
         if ([ligne, colonne + t] in tab_mine or [ligne, colonne + t] in tab_mine_proche and [ligne,
                                                                                              colonne + t] in o and colonne + t >= 1 and colonne + t <= 9) == False and t!=0:
             colonne += t
-            i+=t
-            print(t,"taaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+            i+=abs(t)
+            print(t," ",i,"taaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
             print("verifie colonne", colonne)
             Label(fenetre, text="0", width=5).grid(row=ligne, column=colonne)
             m[i] = 1
@@ -198,12 +199,13 @@ def verifec(i, ligne, colonne, i2, ligne3, colonne3, m, n, o, tabv):
     ligne = ligne3
     colonne = colonne3
     i = i2
+    print("go y")
     for y in range(-1, 2):
         if ([ligne + y, colonne] in tab_mine or [ligne+y, colonne] in tab_mine_proche and [ligne+y,
-                                                                                         colonne] in o and colonne + y >= 1 and colonne + y <= 9) == False and y!=0:
+                                                                                         colonne] in o and colonne + y >= 1 and colonne + y <= 9) == False and y!=0 and i<=200:
             ligne += y
-            i+=y*10
-            print(y, "yaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+            i+=abs(y*10)
+            print(y," ",i,"yaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
             print("verifie ligne", ligne)
             Label(fenetre, text="0", width=5).grid(row=ligne, column=colonne)
             m[i] = 1
@@ -230,6 +232,7 @@ def verifec(i, ligne, colonne, i2, ligne3, colonne3, m, n, o, tabv):
             colonne = tabv[z + 1][0]
             ligne3 = ligne
             colonne3 = colonne
+            print(i,"=ifinal")
 
             for ligne2 in range(-1, 1):
                 for colonne2 in range(-1, 1):
