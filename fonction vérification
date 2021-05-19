@@ -1,16 +1,21 @@
-def verifec(i, ligne, colonne, i2, ligne3, colonne3, m, n, o, tabv):
+def verifec(i, ligne, colonne, i2, ligne3, colonne3, m, n, o,v):
     global tabnb, tab
+    tabv = [[0, 0, 0]] * 5
     casevide = 0
     print(i, "= i ")
     print(colonne, "colonne")
     for t in range(-1, 2):
+        ligne = ligne3
+        colonne = colonne3
+        i = i2
         if ([ligne, colonne + t] in tab_mine or [ligne, colonne + t] in tab_mine_proche and [ligne,
-                                                                                             colonne + t] in o and colonne + t >= 1 and colonne + t <= 9) == False and t!=0:
+                                                                                             colonne + t] in o and colonne + t >= 1 and colonne + t <= 9) == False and t!=0 and i<=190 and i>0:
             colonne += t
             i+=t
             print(t," ",i,"taaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
             print("verifie colonne", colonne)
-            Label(fenetre, text="0", width=5).grid(row=ligne, column=colonne)
+            tab[i].grid_forget()
+            Label(fenetre, text=str(i)+"l", width=5).grid(row=ligne, column=colonne)
             m[i] = 1
             o[i] = [ligne, colonne]
             pointmarquer(m, n)
@@ -20,21 +25,21 @@ def verifec(i, ligne, colonne, i2, ligne3, colonne3, m, n, o, tabv):
                 tabv[2] = [ligne, colonne, i]
             else:
                 tabv[1] = [ligne, colonne, i]
-            ligne = ligne3
-            colonne = colonne3
-            i = i2
-    ligne = ligne3
-    colonne = colonne3
-    i = i2
+
+
     print("go y")
     for y in range(-1, 2):
+        ligne = ligne3
+        colonne = colonne3
+        i = i2
         if ([ligne + y, colonne] in tab_mine or [ligne+y, colonne] in tab_mine_proche and [ligne+y,
-                                                                                         colonne] in o and colonne + y >= 1 and colonne + y <= 9) == False and y!=0 and i<=200:
+                                                                                         colonne] in o and colonne + y >= 1 and colonne + y <= 9) == False and y!=0 and i<=200 and i>0:
             ligne += y
             i+=y*10
+            tab[i].grid_forget()
             print(y," ",i,"yaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
             print("verifie ligne", ligne)
-            Label(fenetre, text="0", width=5).grid(row=ligne, column=colonne)
+            Label(fenetre, text=str(i)+"l", width=5).grid(row=ligne, column=colonne)
             m[i] = 1
             o[i] = [ligne, colonne]
             if y < 0:
@@ -43,6 +48,18 @@ def verifec(i, ligne, colonne, i2, ligne3, colonne3, m, n, o, tabv):
                 tabv[3] = [ligne, colonne, i]
             pointmarquer(m, n)
             casevide = 1
-            ligne = ligne3
-            colonne = colonne3
-            i = i2
+
+    if casevide==1:
+        for z in range(5):
+            print(tabv, "a",z)
+            i = tabv[z+1 ][2]
+            ligne = tabv[z+1 ][1]
+            colonne = tabv[z+1 ][0]
+            print(ligne,colonne,i)
+            ligne3 = ligne
+            colonne3 = colonne
+            print(i,"=ifinal")
+            i2 = i
+            if v==0:
+                v=1
+                verifec(i, ligne, colonne, i2, ligne3, colonne3, m, n, o,v)
